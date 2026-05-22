@@ -28,502 +28,560 @@ const PublicProfile = () => {
   const handleCopy = (text, label) => {
     navigator.clipboard.writeText(text);
     setCopied(label);
-    setTimeout(() => setCopied(null), 1800);
+    setTimeout(() => setCopied(null), 2000);
   };
 
   if (loading) {
     return (
-      <div className="profile-loading">
-        <div className="spinner" />
-        <span>Loading profile…</span>
+      <div style={{
+        minHeight: "100vh",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        gap: 16,
+        background: "linear-gradient(135deg,#FFE6E6,#FFCBE8,#D4B8FF,#B8D4FF)",
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        color: "#7c3aed", fontSize: 15, fontWeight: 700
+      }}>
+        <div style={{
+          width: 40, height: 40,
+          border: "3px solid #e9d5ff",
+          borderTopColor: "#7c3aed",
+          borderRadius: "50%",
+          animation: "spin 0.8s linear infinite"
+        }} />
+        Loading profile…
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="profile-loading">
-        <span className="not-found-icon">🔍</span>
-        <span>User not found</span>
+      <div style={{
+        minHeight: "100vh", display: "flex", alignItems: "center",
+        justifyContent: "center", fontSize: 22, fontWeight: 800,
+        background: "linear-gradient(135deg,#FFE6E6,#FFCBE8,#D4B8FF)",
+        color: "#6d28d9", fontFamily: "'Plus Jakarta Sans', sans-serif"
+      }}>
+        User not found 🔍
       </div>
     );
   }
 
   const socials = [
-    { key: "instagram", label: "Instagram", color: "#E1306C", icon: "📸" },
-    { key: "linkedin", label: "LinkedIn", color: "#0A66C2", icon: "💼" },
-    { key: "github", label: "GitHub", color: "#18181b", icon: "🐙" },
-    { key: "twitter", label: "Twitter", color: "#1DA1F2", icon: "🐦" },
+    { key: "instagram", label: "Instagram", bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)", icon: "📸" },
+    { key: "linkedin", label: "LinkedIn", bg: "#0A66C2", icon: "💼" },
+    { key: "github", label: "GitHub", bg: "#18181b", icon: "🐙" },
+    { key: "twitter", label: "Twitter / X", bg: "#000", icon: "𝕏" },
   ];
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap');
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .profile-page {
+        body { margin: 0; }
+
+        .pp-page {
           min-height: 100vh;
+          background:
+            radial-gradient(ellipse 70% 50% at 15% 10%, rgba(255,182,193,0.55) 0%, transparent 55%),
+            radial-gradient(ellipse 60% 60% at 85% 5%, rgba(186,147,255,0.45) 0%, transparent 55%),
+            radial-gradient(ellipse 80% 50% at 50% 100%, rgba(147,197,253,0.4) 0%, transparent 55%),
+            radial-gradient(ellipse 50% 40% at 90% 80%, rgba(255,182,255,0.35) 0%, transparent 50%),
+            #fdf4ff;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: center;
-          padding: 24px 16px;
-          background: #0d0d12;
-          background-image:
-            radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,0.22) 0%, transparent 60%),
-            radial-gradient(ellipse 60% 50% at 80% 90%, rgba(236,72,153,0.18) 0%, transparent 55%),
-            radial-gradient(ellipse 50% 40% at 60% 40%, rgba(99,102,241,0.12) 0%, transparent 50%);
-          font-family: 'Sora', sans-serif;
-          position: relative;
-          overflow: hidden;
+          padding: 40px 16px 60px;
         }
 
-        /* subtle animated noise grain */
-        .profile-page::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-          pointer-events: none;
-          opacity: 0.45;
-          z-index: 0;
-        }
-
-        .profile-loading {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          background: #0d0d12;
-          color: #a78bfa;
-          font-family: 'Sora', sans-serif;
-          font-size: 15px;
-          font-weight: 600;
-        }
-
-        .spinner {
-          width: 36px; height: 36px;
-          border: 3px solid rgba(124,58,237,0.2);
-          border-top-color: #7c3aed;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-
-        .not-found-icon { font-size: 40px; }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* CARD */
-        .card {
-          position: relative;
-          z-index: 1;
+        /* DESKTOP LAYOUT: wide card */
+        .pp-card {
           width: 100%;
-          max-width: 360px;
-          border-radius: 24px;
-          overflow: hidden;
-          background: rgba(18, 18, 28, 0.92);
-          border: 1px solid rgba(124,58,237,0.25);
+          max-width: 780px;
+          background: rgba(255,255,255,0.82);
+          backdrop-filter: blur(24px);
+          border-radius: 28px;
+          border: 1.5px solid rgba(255,255,255,0.95);
           box-shadow:
-            0 0 0 1px rgba(255,255,255,0.04) inset,
-            0 24px 60px rgba(0,0,0,0.55),
-            0 0 80px rgba(124,58,237,0.12);
-          backdrop-filter: blur(20px);
-          animation: cardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+            0 2px 0 rgba(255,255,255,0.9) inset,
+            0 20px 60px rgba(124,58,237,0.1),
+            0 4px 20px rgba(236,72,153,0.08);
+          overflow: hidden;
+          animation: cardIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
         }
 
         @keyframes cardIn {
-          from { opacity: 0; transform: translateY(28px) scale(0.97); }
+          from { opacity: 0; transform: translateY(30px) scale(0.98); }
           to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         /* COVER */
-        .cover {
-          height: 120px;
+        .pp-cover {
+          width: 100%;
+          height: 200px;
           position: relative;
           overflow: hidden;
         }
 
-        .cover-bg {
+        .pp-cover-bg {
+          position: absolute; inset: 0;
+          background: linear-gradient(135deg, #c084fc, #f472b6, #fb923c, #facc15);
+          background-size: 300% 300%;
+          animation: coverShift 8s ease infinite alternate;
+        }
+
+        @keyframes coverShift {
+          0%   { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+
+        .pp-cover-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.15) 100%);
+        }
+
+        .pp-logo {
           position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, #3b0764, #6d28d9, #be185d);
-          background-size: 200% 200%;
-          animation: gradShift 6s ease infinite alternate;
+          top: 14px; right: 16px;
+          width: 52px; height: 52px;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.88);
+          backdrop-filter: blur(10px);
+          border: 1.5px solid rgba(255,255,255,0.95);
+          padding: 6px;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.12);
         }
 
-        .cover-bg.has-image {
-          background-size: cover;
-          background-position: center;
-          animation: none;
+        .pp-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* MAIN CONTENT AREA */
+        .pp-content {
+          padding: 0 28px 28px;
         }
 
-        @keyframes gradShift {
-          from { background-position: 0% 50%; }
-          to   { background-position: 100% 50%; }
-        }
-
-        .cover-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to bottom, transparent 40%, rgba(18,18,28,0.7) 100%);
-        }
-
-        /* LOGO */
-        .logo-badge {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          width: 44px; height: 44px;
-          border-radius: 12px;
-          background: rgba(13,13,18,0.75);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255,255,255,0.12);
-          padding: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-        }
-
-        .logo-badge img {
-          width: 100%; height: 100%;
-          object-fit: contain;
-        }
-
-        /* BODY */
-        .card-body {
-          padding: 0 18px 22px;
-        }
-
-        /* AVATAR ROW */
-        .avatar-row {
+        /* TOP ROW: avatar + connect */
+        .pp-top-row {
           display: flex;
           justify-content: space-between;
           align-items: flex-end;
-          margin-top: -28px;
-          margin-bottom: 14px;
+          margin-top: -44px;
+          margin-bottom: 18px;
         }
 
-        .avatar-wrap {
+        /* AVATAR */
+        .pp-avatar-wrap {
           position: relative;
+          padding: 3px;
+          border-radius: 20px;
+          background: linear-gradient(135deg, #c084fc, #f472b6, #fb923c);
+          box-shadow: 0 8px 24px rgba(192,132,252,0.35);
         }
 
-        .avatar-wrap::before {
-          content: '';
-          position: absolute;
-          inset: -3px;
+        .pp-avatar {
+          width: 90px; height: 90px;
           border-radius: 17px;
-          background: linear-gradient(135deg, #7c3aed, #ec4899);
-          z-index: -1;
-        }
-
-        .avatar {
-          width: 72px; height: 72px;
-          border-radius: 14px;
           object-fit: cover;
           display: block;
-          border: 3px solid #12121c;
-          position: relative;
-          z-index: 1;
+          background: #fff;
+          border: 3px solid #fff;
         }
 
-        .avatar-placeholder {
-          width: 72px; height: 72px;
+        .pp-avatar-placeholder {
+          width: 90px; height: 90px;
+          border-radius: 17px;
+          background: linear-gradient(135deg, #c084fc, #f472b6);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 34px; font-weight: 900; color: #fff;
+          border: 3px solid #fff;
+        }
+
+        /* CONNECT BTN */
+        .pp-connect {
+          padding: 11px 24px;
           border-radius: 14px;
-          background: linear-gradient(135deg, #7c3aed, #ec4899);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 28px;
+          background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+          color: #fff;
+          font-size: 13px;
           font-weight: 800;
-          color: #fff;
-          border: 3px solid #12121c;
-        }
-
-        .connect-btn {
-          padding: 9px 18px;
-          border-radius: 12px;
-          background: linear-gradient(135deg, #7c3aed, #a855f7);
-          color: #fff;
-          font-size: 12px;
-          font-weight: 700;
           border: none;
           cursor: pointer;
-          letter-spacing: 0.5px;
-          box-shadow: 0 4px 18px rgba(124,58,237,0.38);
-          transition: transform 0.15s, box-shadow 0.15s;
-          font-family: 'Sora', sans-serif;
+          letter-spacing: 0.4px;
+          box-shadow: 0 6px 22px rgba(124,58,237,0.32);
+          transition: transform 0.15s, box-shadow 0.2s;
+          font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        .connect-btn:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 6px 24px rgba(124,58,237,0.52);
+        .pp-connect:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(124,58,237,0.42);
         }
 
-        .connect-btn:active { transform: scale(0.97); }
+        /* DESKTOP: split layout */
+        @media (min-width: 620px) {
+          .pp-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+          }
+        }
 
-        /* NAME / TITLE */
-        .user-name {
-          font-size: 20px;
-          font-weight: 800;
-          color: #f1f5f9;
+        @media (max-width: 619px) {
+          .pp-split {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+          }
+          .pp-cover { height: 140px; }
+          .pp-card { border-radius: 20px; }
+          .pp-content { padding: 0 16px 22px; }
+          .pp-avatar { width: 76px; height: 76px; }
+          .pp-avatar-placeholder { width: 76px; height: 76px; }
+          .pp-top-row { margin-top: -36px; }
+        }
+
+        /* NAME BLOCK */
+        .pp-name {
+          font-family: 'Instrument Serif', serif;
+          font-size: 32px;
+          font-weight: 400;
+          color: #1e1b4b;
+          line-height: 1.1;
+          margin-bottom: 5px;
           letter-spacing: -0.5px;
-          line-height: 1.2;
-          margin-bottom: 4px;
         }
 
-        .user-job {
+        @media (max-width: 619px) {
+          .pp-name { font-size: 24px; }
+        }
+
+        .pp-job {
+          font-size: 13px;
+          font-weight: 700;
+          color: #7c3aed;
+          margin-bottom: 4px;
+          letter-spacing: 0.3px;
+        }
+
+        .pp-location {
           font-size: 12px;
-          font-weight: 600;
-          background: linear-gradient(90deg, #a78bfa, #f472b6);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          margin-bottom: 4px;
-          letter-spacing: 0.2px;
+          color: #a78bfa;
+          margin-bottom: 14px;
+          font-weight: 500;
         }
 
-        .user-location {
-          font-size: 11px;
-          color: #64748b;
-          margin-bottom: 12px;
-          display: flex;
-          align-items: center;
-          gap: 4px;
+        .pp-bio {
+          font-size: 13.5px;
+          color: #475569;
+          line-height: 1.7;
+          margin-bottom: 16px;
+          font-weight: 400;
         }
 
         /* DIVIDER */
-        .divider {
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(124,58,237,0.3), transparent);
-          margin: 12px 0;
-        }
-
-        /* BIO */
-        .user-bio {
-          font-size: 12.5px;
-          color: #94a3b8;
-          line-height: 1.65;
-          margin-bottom: 14px;
+        .pp-divider {
+          height: 1.5px;
+          background: linear-gradient(90deg, #e9d5ff, #fbcfe8, #bfdbfe, transparent);
+          border: none;
+          border-radius: 2px;
+          margin: 16px 0;
         }
 
         /* CONTACT CHIPS */
-        .contact-list {
+        .pp-contacts {
           display: flex;
           flex-direction: column;
-          gap: 8px;
-          margin-bottom: 14px;
+          gap: 9px;
         }
 
-        .contact-chip {
+        .pp-chip {
           display: flex;
           align-items: center;
-          gap: 10px;
-          padding: 10px 14px;
-          border-radius: 12px;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.07);
+          gap: 12px;
+          padding: 12px 16px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(237,233,254,0.7), rgba(252,231,243,0.5));
+          border: 1.5px solid rgba(196,168,255,0.35);
           cursor: pointer;
-          transition: background 0.15s, border-color 0.15s;
+          transition: all 0.18s;
           position: relative;
           overflow: hidden;
         }
 
-        .contact-chip:hover {
-          background: rgba(124,58,237,0.12);
-          border-color: rgba(124,58,237,0.3);
+        .pp-chip:hover {
+          background: linear-gradient(135deg, rgba(221,214,254,0.9), rgba(251,207,232,0.7));
+          border-color: rgba(167,139,250,0.55);
+          transform: translateX(3px);
+          box-shadow: 0 4px 14px rgba(167,139,250,0.18);
         }
 
-        .contact-chip .chip-icon {
-          font-size: 15px;
+        .pp-chip-icon {
+          font-size: 16px;
           flex-shrink: 0;
+          width: 32px; height: 32px;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(255,255,255,0.8);
+          border-radius: 9px;
+          box-shadow: 0 2px 6px rgba(167,139,250,0.2);
         }
 
-        .contact-chip .chip-text {
-          font-size: 12.5px;
-          color: #cbd5e1;
-          font-family: 'DM Mono', monospace;
-          font-weight: 400;
-          letter-spacing: 0.2px;
-        }
-
-        .copy-toast {
-          position: absolute;
-          right: 12px;
-          font-size: 10px;
-          color: #a78bfa;
-          font-weight: 700;
-          letter-spacing: 0.5px;
-          animation: fadeIn 0.2s ease;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
-
-        /* WEBSITE BUTTON */
-        .website-btn {
-          display: block;
-          width: 100%;
-          padding: 13px;
-          border-radius: 14px;
-          background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
-          background-size: 200% 200%;
-          color: #fff;
-          font-weight: 700;
+        .pp-chip-text {
           font-size: 13px;
-          text-align: center;
-          text-decoration: none;
-          letter-spacing: 0.5px;
-          margin-bottom: 14px;
-          font-family: 'Sora', sans-serif;
-          box-shadow: 0 4px 20px rgba(124,58,237,0.35);
-          transition: transform 0.15s, box-shadow 0.15s, background-position 0.4s;
+          color: #4c1d95;
+          font-weight: 600;
+          letter-spacing: 0.1px;
         }
 
-        .website-btn:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 8px 28px rgba(124,58,237,0.5);
-          background-position: right center;
+        .pp-chip-copy {
+          position: absolute;
+          right: 14px;
+          font-size: 10px;
+          font-weight: 800;
+          color: #7c3aed;
+          letter-spacing: 1px;
+          background: rgba(237,233,254,0.95);
+          padding: 3px 7px;
+          border-radius: 6px;
+          animation: popIn 0.2s cubic-bezier(0.16,1,0.3,1) both;
+        }
+
+        @keyframes popIn {
+          from { opacity: 0; transform: scale(0.7); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* WEBSITE BTN */
+        .pp-website {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          width: 100%;
+          padding: 14px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899, #f97316);
+          background-size: 250% 250%;
+          color: #fff;
+          font-weight: 800;
+          font-size: 14px;
+          text-decoration: none;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          letter-spacing: 0.3px;
+          margin-top: 18px;
+          box-shadow: 0 6px 24px rgba(124,58,237,0.3);
+          transition: transform 0.2s, box-shadow 0.2s, background-position 0.5s;
+          animation: btnGrad 5s ease infinite alternate;
+        }
+
+        @keyframes btnGrad {
+          0%   { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+
+        .pp-website:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 36px rgba(124,58,237,0.4);
         }
 
         /* SOCIALS */
-        .socials-row {
+        .pp-socials-title {
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #c4b5fd;
+          margin-bottom: 10px;
+          margin-top: 18px;
+        }
+
+        .pp-socials {
           display: flex;
           gap: 8px;
           flex-wrap: wrap;
         }
 
-        .social-pill {
+        .pp-social {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
-          padding: 7px 14px;
-          border-radius: 999px;
-          font-size: 12px;
+          gap: 7px;
+          padding: 9px 16px;
+          border-radius: 12px;
+          font-size: 12.5px;
           font-weight: 700;
-          font-family: 'Sora', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           text-decoration: none;
           color: #fff;
-          letter-spacing: 0.3px;
-          transition: transform 0.15s, filter 0.15s;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+          letter-spacing: 0.2px;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+          transition: transform 0.18s, box-shadow 0.18s;
         }
 
-        .social-pill:hover {
-          transform: translateY(-2px);
-          filter: brightness(1.12);
+        .pp-social:hover {
+          transform: translateY(-3px) scale(1.04);
+          box-shadow: 0 8px 22px rgba(0,0,0,0.22);
         }
+
+        /* STATS ROW (desktop) */
+        .pp-stats {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 18px;
+          flex-wrap: wrap;
+        }
+
+        .pp-stat {
+          flex: 1;
+          min-width: 80px;
+          padding: 14px 12px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(237,233,254,0.8), rgba(252,231,243,0.6));
+          border: 1.5px solid rgba(196,168,255,0.3);
+          text-align: center;
+        }
+
+        .pp-stat-val {
+          font-size: 22px;
+          font-weight: 900;
+          color: #6d28d9;
+          line-height: 1;
+          font-family: 'Instrument Serif', serif;
+        }
+
+        .pp-stat-label {
+          font-size: 10px;
+          font-weight: 700;
+          color: #a78bfa;
+          letter-spacing: 0.8px;
+          text-transform: uppercase;
+          margin-top: 4px;
+        }
+
+        /* SECTION LABELS */
+        .pp-section-label {
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #c4b5fd;
+          margin-bottom: 10px;
+        }
+
+        /* RIGHT COL on desktop */
+        .pp-right { }
       `}</style>
 
-      <div className="profile-page">
-        <div className="card">
+      <div className="pp-page">
+        <div className="pp-card">
 
           {/* COVER */}
-          <div className="cover">
+          <div className="pp-cover">
             <div
-              className={`cover-bg${user.coverImage ? " has-image" : ""}`}
-              style={user.coverImage ? { backgroundImage: `url(${user.coverImage})` } : {}}
+              className="pp-cover-bg"
+              style={user.coverImage
+                ? { backgroundImage: `url(${user.coverImage})`, backgroundSize: "cover", backgroundPosition: "center", animation: "none" }
+                : {}}
             />
-            <div className="cover-overlay" />
+            <div className="pp-cover-overlay" />
             {user.logoImage && (
-              <div className="logo-badge">
+              <div className="pp-logo">
                 <img src={user.logoImage} alt="logo" />
               </div>
             )}
           </div>
 
-          {/* BODY */}
-          <div className="card-body">
+          {/* CONTENT */}
+          <div className="pp-content">
 
-            {/* AVATAR ROW */}
-            <div className="avatar-row">
-              <div className="avatar-wrap">
-                {user.profileImage ? (
-                  <img src={user.profileImage} alt={user.name} className="avatar" />
-                ) : (
-                  <div className="avatar-placeholder">
-                    {user.name?.[0]?.toUpperCase() || "?"}
-                  </div>
-                )}
+            {/* TOP ROW */}
+            <div className="pp-top-row">
+              <div className="pp-avatar-wrap">
+                {user.profileImage
+                  ? <img src={user.profileImage} alt={user.name} className="pp-avatar" />
+                  : <div className="pp-avatar-placeholder">{user.name?.[0]?.toUpperCase() || "?"}</div>
+                }
               </div>
-              <button className="connect-btn">+ Connect</button>
+              <button className="pp-connect">+ Connect</button>
             </div>
 
-            {/* NAME */}
-            <h2 className="user-name">{user.name}</h2>
+            {/* SPLIT LAYOUT */}
+            <div className="pp-split">
 
-            {/* JOB */}
-            {(user.jobTitle || user.company) && (
-              <p className="user-job">
-                {user.jobTitle}{user.company ? ` · ${user.company}` : ""}
-              </p>
-            )}
+              {/* LEFT: identity */}
+              <div className="pp-left">
+                <h1 className="pp-name">{user.name}</h1>
 
-            {/* LOCATION */}
-            {user.location && (
-              <p className="user-location">
-                <span>📍</span> {user.location}
-              </p>
-            )}
-
-            <div className="divider" />
-
-            {/* BIO */}
-            {user.bio && <p className="user-bio">{user.bio}</p>}
-
-            {/* CONTACT */}
-            {(user.phone || user.email || user.location) && (
-              <div className="contact-list">
-                {user.phone && (
-                  <div className="contact-chip" onClick={() => handleCopy(user.phone, "phone")}>
-                    <span className="chip-icon">📞</span>
-                    <span className="chip-text">{user.phone}</span>
-                    {copied === "phone" && <span className="copy-toast">COPIED!</span>}
-                  </div>
+                {(user.jobTitle || user.company) && (
+                  <p className="pp-job">
+                    {user.jobTitle}{user.company ? ` · ${user.company}` : ""}
+                  </p>
                 )}
-                {user.email && (
-                  <div className="contact-chip" onClick={() => handleCopy(user.email, "email")}>
-                    <span className="chip-icon">✉️</span>
-                    <span className="chip-text">{user.email}</span>
-                    {copied === "email" && <span className="copy-toast">COPIED!</span>}
-                  </div>
-                )}
+
                 {user.location && (
-                  <div className="contact-chip">
-                    <span className="chip-icon">📍</span>
-                    <span className="chip-text">{user.location}</span>
-                  </div>
+                  <p className="pp-location">📍 {user.location}</p>
+                )}
+
+                {user.bio && (
+                  <p className="pp-bio">{user.bio}</p>
+                )}
+
+                {/* SOCIALS */}
+                {socials.some(s => user[s.key]) && (
+                  <>
+                    <p className="pp-socials-title">Find me on</p>
+                    <div className="pp-socials">
+                      {socials.map(({ key, label, bg, icon }) =>
+                        user[key] ? (
+                          <a key={key} href={user[key]} target="_blank" rel="noreferrer"
+                            className="pp-social" style={{ background: bg }}>
+                            <span>{icon}</span> {label}
+                          </a>
+                        ) : null
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
-            )}
 
-            {/* WEBSITE */}
-            {user.website && (
-              <a href={user.website} target="_blank" rel="noreferrer" className="website-btn">
-                🌐 &nbsp;Visit Website
-              </a>
-            )}
+              {/* RIGHT: contact */}
+              <div className="pp-right">
+                <p className="pp-section-label">Contact</p>
+                <div className="pp-contacts">
+                  {user.phone && (
+                    <div className="pp-chip" onClick={() => handleCopy(user.phone, "phone")}>
+                      <span className="pp-chip-icon">📞</span>
+                      <span className="pp-chip-text">{user.phone}</span>
+                      {copied === "phone" && <span className="pp-chip-copy">COPIED ✓</span>}
+                    </div>
+                  )}
+                  {user.email && (
+                    <div className="pp-chip" onClick={() => handleCopy(user.email, "email")}>
+                      <span className="pp-chip-icon">✉️</span>
+                      <span className="pp-chip-text">{user.email}</span>
+                      {copied === "email" && <span className="pp-chip-copy">COPIED ✓</span>}
+                    </div>
+                  )}
+                  {user.location && (
+                    <div className="pp-chip">
+                      <span className="pp-chip-icon">📍</span>
+                      <span className="pp-chip-text">{user.location}</span>
+                    </div>
+                  )}
+                </div>
 
-            {/* SOCIALS */}
-            <div className="socials-row">
-              {socials.map(({ key, label, color, icon }) =>
-                user[key] ? (
-                  <a
-                    key={key}
-                    href={user[key]}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="social-pill"
-                    style={{ background: color }}
-                  >
-                    {icon} {label}
+                {user.website && (
+                  <a href={user.website} target="_blank" rel="noreferrer" className="pp-website">
+                    🌐 Visit Website
                   </a>
-                ) : null
-              )}
-            </div>
+                )}
+              </div>
 
+            </div>
           </div>
         </div>
       </div>
