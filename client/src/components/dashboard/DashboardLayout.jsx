@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 
+
 const LotusIcon = ({ size = 36 }) => (
   <svg width={size} height={size} viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -55,7 +56,7 @@ icon: (
   },
   {
     label: "Leads",
-    path: "/leads",
+    path: "/dashboard/leads",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
