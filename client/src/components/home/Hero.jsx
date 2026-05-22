@@ -140,7 +140,7 @@ const Hero = () => {
           }}
         >
           Share your contact details instantly with NFC and QR technology.
-          Modern networking made simple, beautiful, and powerful with Tapify.
+          Modern networking made simple, beautiful, and powerful with Tap To Go.
         </p>
 
         {/* BUTTONS */}

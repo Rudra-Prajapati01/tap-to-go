@@ -64,7 +64,7 @@ const Navbar = () => {
             fontFamily: "sans-serif",
           }}
         >
-          Tapify
+          Tap To Go
         </h1>
 
       </div>

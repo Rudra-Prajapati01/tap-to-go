@@ -1,32 +1,76 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import Dashboard from "../components/dashboard/Dashboard";
-import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
 
+import Dashboard from "../components/dashboard/Dashboard";
+import DashboardLayout from "../components/dashboard/DashboardLayout";
+
+import ProtectedRoute from "./ProtectedRoute";
+
+import PublicProfile from "../pages/PublicProfile";
+
+import EditProfile from "../components/profile/EditProfile";
+
 const AppRoutes = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home/>} />
+  return (
+    <BrowserRouter>
 
-                <Route path="/login" element={<Login />} />
+      <Routes>
 
-                <Route path="/register" element={<Register />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-                <Route
-                    path="/dashboard"
-                    element={
-                        <ProtectedRoute>
-                            <Dashboard />
-                        </ProtectedRoute>
-                    }
-                />
-            </Routes>
-        </BrowserRouter>
-    );
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/u/:uniqueId"
+          element={<PublicProfile />}
+        />
+
+        {/* DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* PROFILE */}
+        <Route
+          path="/dashboard/profile"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <EditProfile />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+
+    </BrowserRouter>
+  );
 };
 
 export default AppRoutes;

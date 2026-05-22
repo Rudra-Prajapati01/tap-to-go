@@ -106,16 +106,81 @@ const RegisterForm = () => {
   };
 
   const googleRegister = async () => {
+
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
-      localStorage.setItem("googleUser", JSON.stringify(result.user));
-      alert("Google Registration Successful");
+
+      // GOOGLE PROVIDER
+      const provider =
+        new GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: "select_account",
+      });
+
+      // FIREBASE LOGIN
+      const result =
+        await signInWithPopup(
+          auth,
+          provider
+        );
+
+      // GOOGLE USER
+      const googleUser =
+        result.user;
+
+      console.log(
+        "GOOGLE USER:",
+        googleUser
+      );
+
+      // SEND TO BACKEND
+      const res = await API.post(
+        "/google-login",
+        {
+
+          name:
+            googleUser.displayName,
+
+          email:
+            googleUser.email,
+
+          profileImage:
+            googleUser.photoURL,
+
+        }
+      );
+
+      console.log(
+        "BACKEND RESPONSE:",
+        res.data
+      );
+
+      // SAVE TOKEN
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
+
+      // SAVE USER
+      localStorage.setItem(
+        "user",
+        JSON.stringify(
+          res.data.user
+        )
+      );
+
+      // CONTEXT
+      setUser(res.data.user);
+
+      // REDIRECT
       navigate("/dashboard");
+
     } catch (error) {
-      console.log("GOOGLE ERROR:", error);
-      alert(error.message);
+
+      console.log(
+        "GOOGLE REGISTER ERROR:",
+        error
+      );
+
     }
   };
 
