@@ -806,13 +806,47 @@ END:VCARD`;
                   onClick={handleSave}
                   disabled={loading}
                   style={{
-                    flex: 1, padding: "14px", borderRadius: "14px", border: "none",
-                    background: saved ? "#10b981" : loading ? `${theme.buttonColor}aa` : theme.buttonColor,
-                    color: theme.buttonTextColor,
-                    fontWeight: "700", fontSize: "14px", cursor: loading ? "not-allowed" : "pointer",
-                    fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-                    boxShadow: saved ? "0 4px 16px rgba(16,185,129,0.25)" : "0 4px 20px rgba(99,102,241,0.25)",
-                    transition: "all 0.2s", opacity: loading ? 0.85 : 1,
+                    flex: 1,
+
+                    padding: "14px",
+
+                    borderRadius: "14px",
+
+                    border: "none",
+
+                    background: saved
+                      ? "#10b981"
+                      : loading
+                        ? "linear-gradient(135deg,#7c3aedcc,#a855f7cc)"
+                        : "linear-gradient(135deg,#7c3aed,#a855f7)",
+
+                    color: "#ffffff",
+
+                    fontWeight: "700",
+
+                    fontSize: "14px",
+
+                    cursor: loading
+                      ? "not-allowed"
+                      : "pointer",
+
+                    fontFamily: "inherit",
+
+                    display: "flex",
+
+                    alignItems: "center",
+
+                    justifyContent: "center",
+
+                    gap: "8px",
+
+                    boxShadow: saved
+                      ? "0 4px 16px rgba(16,185,129,0.25)"
+                      : "0 4px 20px rgba(124,58,237,0.28)",
+
+                    transition: "all 0.2s",
+
+                    opacity: loading ? 0.85 : 1,
                   }}
                 >
                   {saved
@@ -822,47 +856,48 @@ END:VCARD`;
                       : <>{Icons.save} Save Changes</>
                   }
                 </button>
-                <button
-                  onClick={() => window.location.reload()}
-                  style={{ padding: "14px 22px", borderRadius: "14px", border: "1.5px solid #e2e8f0", background: "#fff", fontSize: "14px", fontWeight: "600", color: "#64748b", cursor: "pointer", fontFamily: "inherit", transition: "border-color 0.2s" }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = "#94a3b8"}
-                  onMouseLeave={e => e.currentTarget.style.borderColor = "#e2e8f0"}
-                >
-                  Cancel
-                </button>
               </div>
+              <button
+                onClick={() => window.location.reload()}
+                style={{ padding: "14px 22px", borderRadius: "14px", border: "1.5px solid #e2e8f0", background: "#fff", fontSize: "14px", fontWeight: "600", color: "#64748b", cursor: "pointer", fontFamily: "inherit", transition: "border-color 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = "#94a3b8"}
+                onMouseLeave={e => e.currentTarget.style.borderColor = "#e2e8f0"}
+              >
+                Cancel
+              </button>
             </div>
-
-            {/* ── RIGHT: Preview ── */}
-            <div className="preview-sticky" style={{ position: "sticky", top: "90px" }}>
-              <div style={{ background: "#fff", borderRadius: "20px", overflow: "hidden", border: "1.5px solid #f1f5f9", boxShadow: "0 2px 16px rgba(99,102,241,0.06)" }}>
-
-                {/* Preview header */}
-                <div style={{ padding: "14px 18px", borderBottom: "1.5px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontWeight: "700", fontSize: "14px", color: "#1e293b" }}>Card Preview</span>
-                  <span style={{ fontSize: "12px", color: "#10b981", fontWeight: "600", display: "flex", alignItems: "center", gap: "4px" }}>
-                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
-                    Live
-                  </span>
-                </div>
-
-                {/* Card preview */}
-                <div style={{ margin: "16px" }}>{cardPreview}</div>
-
-                {/* QR code */}
-                <div style={{ margin: "0 16px 16px", background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: "14px", padding: "14px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-                    {Icons.qr}
-                    <span style={{ fontSize: "12px", color: "#64748b", fontWeight: "600" }}>Public Profile QR</span>
-                  </div>
-                  <ProfileQRCode uniqueId={storedUser?.uniqueId} />
-                </div>
-              </div>
-            </div>
-
           </div>
+
+          {/* ── RIGHT: Preview ── */}
+          <div className="preview-sticky" style={{ position: "sticky", top: "90px" }}>
+            <div style={{ background: "#fff", borderRadius: "20px", overflow: "hidden", border: "1.5px solid #f1f5f9", boxShadow: "0 2px 16px rgba(99,102,241,0.06)" }}>
+
+              {/* Preview header */}
+              <div style={{ padding: "14px 18px", borderBottom: "1.5px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span style={{ fontWeight: "700", fontSize: "14px", color: "#1e293b" }}>Card Preview</span>
+                <span style={{ fontSize: "12px", color: "#10b981", fontWeight: "600", display: "flex", alignItems: "center", gap: "4px" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
+                  Live
+                </span>
+              </div>
+
+              {/* Card preview */}
+              <div style={{ margin: "16px" }}>{cardPreview}</div>
+
+              {/* QR code */}
+              <div style={{ margin: "0 16px 16px", background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: "14px", padding: "14px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                  {Icons.qr}
+                  <span style={{ fontSize: "12px", color: "#64748b", fontWeight: "600" }}>Public Profile QR</span>
+                </div>
+                <ProfileQRCode uniqueId={storedUser?.uniqueId} />
+              </div>
+            </div>
+          </div>
+
         </div>
-      </main>
+      </div>
+    </main >
     </>
   );
 }
