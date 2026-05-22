@@ -121,6 +121,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    coverTheme: {
+      type: String,
+      default: "",
+    },
 
     logoImage: {
       type: String,
@@ -204,6 +208,42 @@ const userSchema = new mongoose.Schema(
       },
     },
 
+    theme: {
+      profileTheme: {
+        type: String,
+        default: "#7c3aed"
+      },
+
+      backgroundColor: {
+        type: String,
+        default: "#ffffff"
+      },
+
+      textColor: {
+        type: String,
+        default: "#000000"
+      },
+
+      buttonColor: {
+        type: String,
+        default: "#7c3aed"
+      },
+
+      buttonTextColor: {
+        type: String,
+        default: "#ffffff"
+      },
+
+      fontFamily: {
+        type: String,
+        default: "Poppins"
+      },
+
+      cardView: {
+        type: String,
+        default: "left"
+      }
+    }
   },
 
   {
