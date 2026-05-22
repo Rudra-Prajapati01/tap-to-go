@@ -10,6 +10,18 @@ const PublicProfile = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const [showLeadForm, setShowLeadForm] =
+    useState(false);
+
+  const [leadForm, setLeadForm] =
+    useState({
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      message: "",
+    });
+
   const [copied, setCopied] = useState(null);
 
   useEffect(() => {
@@ -578,6 +590,86 @@ const PublicProfile = () => {
           margin-top: 18px;
         }
 
+        .lead-modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+}
+
+.lead-box{
+  width:100%;
+  max-width:420px;
+  background:white;
+  border-radius:24px;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.2);
+}
+
+.lead-box h2{
+  font-size:24px;
+  font-weight:800;
+  color:#1e1b4b;
+  margin-bottom:10px;
+}
+
+.lead-box input,
+.lead-box textarea{
+
+  width:100%;
+
+  padding:14px 16px;
+
+  border-radius:14px;
+
+  border:1.5px solid #e2e8f0;
+
+  outline:none;
+
+  font-size:14px;
+
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+.lead-box textarea{
+  min-height:100px;
+  resize:none;
+}
+
+.lead-box button{
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #a855f7,
+      #ec4899
+    );
+
+  color:white;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  cursor:pointer;
+}
+
         @media (max-width: 620px) {
 
           .pp-split {
@@ -621,10 +713,10 @@ const PublicProfile = () => {
               style={
                 user.coverImage
                   ? {
-                      backgroundImage: `url(${user.coverImage})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }
+                    backgroundImage: `url(${user.coverImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }
                   : {}
               }
             />
@@ -661,7 +753,10 @@ const PublicProfile = () => {
 
               </div>
 
-              <button className="pp-connect">
+              <button
+                className="pp-connect"
+                onClick={() => setShowLeadForm(true)}
+              >
                 + Connect
               </button>
 
@@ -694,22 +789,22 @@ const PublicProfile = () => {
                   user.state ||
                   user.country) && (
 
-                  <p className="pp-location">
+                    <p className="pp-location">
 
-                    📍{" "}
+                      📍{" "}
 
-                    {[
-                      user.streetAddress,
-                      user.city,
-                      user.state,
-                      user.country,
-                      user.postcode,
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
+                      {[
+                        user.streetAddress,
+                        user.city,
+                        user.state,
+                        user.country,
+                        user.postcode,
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
 
-                  </p>
-                )}
+                    </p>
+                  )}
 
                 {user.bio && (
                   <p className="pp-bio">
@@ -829,35 +924,35 @@ const PublicProfile = () => {
                     user.state ||
                     user.country) && (
 
-                    <div className="pp-chip">
+                      <div className="pp-chip">
 
-                      <span className="pp-chip-icon">
-                        📍
-                      </span>
+                        <span className="pp-chip-icon">
+                          📍
+                        </span>
 
-                      <span
-                        className="pp-chip-text"
-                        style={{
-                          lineHeight: "1.5",
-                          whiteSpace: "normal",
-                          wordBreak: "break-word",
-                        }}
-                      >
+                        <span
+                          className="pp-chip-text"
+                          style={{
+                            lineHeight: "1.5",
+                            whiteSpace: "normal",
+                            wordBreak: "break-word",
+                          }}
+                        >
 
-                        {[
-                          user.streetAddress,
-                          user.city,
-                          user.state,
-                          user.country,
-                          user.postcode,
-                        ]
-                          .filter(Boolean)
-                          .join(", ")}
+                          {[
+                            user.streetAddress,
+                            user.city,
+                            user.state,
+                            user.country,
+                            user.postcode,
+                          ]
+                            .filter(Boolean)
+                            .join(", ")}
 
-                      </span>
+                        </span>
 
-                    </div>
-                  )}
+                      </div>
+                    )}
 
                 </div>
 
@@ -882,8 +977,97 @@ const PublicProfile = () => {
 
         </div>
 
+        {showLeadForm && (
+
+          <div className="lead-modal">
+
+            <div className="lead-box">
+
+              <h2>
+                Connect with {user.name}
+              </h2>
+
+              {user.leadCapture?.fields?.name && (
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={leadForm.name}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      name: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {user.leadCapture?.fields?.email && (
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={leadForm.email}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      email: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {user.leadCapture?.fields?.phone && (
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={leadForm.phone}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      phone: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {user.leadCapture?.fields?.company && (
+                <input
+                  type="text"
+                  placeholder="Company Name"
+                  value={leadForm.company}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      company: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {user.leadCapture?.fields?.message && (
+                <textarea
+                  placeholder="Message"
+                  value={leadForm.message}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      message: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              <button>
+                Submit
+              </button>
+
+            </div>
+
+          </div>
+
+        )}
       </div>
     </>
+
   );
 };
 

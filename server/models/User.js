@@ -169,6 +169,41 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
 
+    // LEAD CAPTURE SETTINGS
+    leadCapture: {
+      enabled: {
+        type: Boolean,
+        default: true,
+      },
+
+      fields: {
+        name: {
+          type: Boolean,
+          default: true,
+        },
+
+        email: {
+          type: Boolean,
+          default: true,
+        },
+
+        phone: {
+          type: Boolean,
+          default: true,
+        },
+
+        company: {
+          type: Boolean,
+          default: false,
+        },
+
+        message: {
+          type: Boolean,
+          default: false,
+        },
+      },
+    },
+
   },
 
   {
