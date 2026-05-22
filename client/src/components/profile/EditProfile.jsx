@@ -979,13 +979,50 @@ export default function EditProfile() {
                   </div>
                 </div>
 
-                {/* Share URL */}
-                <div style={{ margin: "0 16px 16px", display: "flex", alignItems: "center", gap: "8px", background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: "11px", padding: "9px 12px" }}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" /></svg>
-                  <span style={{ fontSize: "12px", color: "#64748b", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>taplink.cc/{form.username || "yourhandle"}</span>
-                  <button style={{ fontSize: "12px", fontWeight: "700", color: "#7c3aed", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}>Copy</button>
-                </div>
-                <div style={{ margin: "16px" }}>
+                <div
+                  style={{
+                    margin: "0 16px 16px",
+                    background: "#f8fafc",
+                    border: "1.5px solid #e2e8f0",
+                    borderRadius: "14px",
+                    padding: "14px",
+                  }}
+                >
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      marginBottom: "12px",
+                    }}
+                  >
+
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#7c3aed"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" y1="12" x2="22" y2="12" />
+                      <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                    </svg>
+
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "#64748b",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Public Profile QR
+                    </span>
+
+                  </div>
 
                   <ProfileQRCode
                     uniqueId={user?.uniqueId}
