@@ -866,7 +866,6 @@ END:VCARD`;
                 Cancel
               </button>
             </div>
-          </div>
 
           {/* ── RIGHT: Preview ── */}
           <div className="preview-sticky" style={{ position: "sticky", top: "90px" }}>
@@ -896,6 +895,7 @@ END:VCARD`;
           </div>
 
         </div>
+                 </div> 
     </main >
     </>
   );
