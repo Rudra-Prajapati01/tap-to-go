@@ -6,6 +6,9 @@ const Leads = () => {
   const [leads, setLeads] =
     useState([]);
 
+  const [loading, setLoading] =
+    useState(true);
+
   const user =
     JSON.parse(
       localStorage.getItem("user")
@@ -19,32 +22,34 @@ const Leads = () => {
 
   const fetchLeads = async () => {
 
-  try {
+    try {
 
-    const res = await axios.get(
+      const res = await axios.get(
 
-      `${import.meta.env.VITE_API_URL}/api/leads/${user.uniqueId}`
+        `${import.meta.env.VITE_API_URL}/api/leads/${user.uniqueId}`
 
-    );
+      );
 
-    console.log(res.data);
+      console.log(res.data);
 
-    setLeads(
-      Array.isArray(res.data)
-        ? res.data
-        : res.data.leads || []
-    );
+      setLeads(
 
-  } catch (error) {
+        Array.isArray(res.data)
+          ? res.data
+          : res.data.leads || []
 
-    console.log(error);
+      );
 
-  } finally {
+    } catch (error) {
 
-    setLoading(false);
+      console.log(error);
 
-  }
-};
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
 
   return (
 
@@ -65,86 +70,96 @@ const Leads = () => {
         Leads
       </h1>
 
-      <div
-        style={{
-          display: "grid",
-          gap: "20px",
-        }}
-      >
+      {loading ? (
 
-        {leads.length === 0 && (
+        <div>
+          Loading...
+        </div>
 
-          <div
-            style={{
-              background: "#fff",
-              padding: "40px",
-              borderRadius: "20px",
-              textAlign: "center",
-              color: "#64748b",
-              fontWeight: "600",
-            }}
-          >
-            No Leads Yet 🚀
-          </div>
+      ) : (
 
-        )}
+        <div
+          style={{
+            display: "grid",
+            gap: "20px",
+          }}
+        >
 
-        {leads.map((lead) => (
-
-          <div
-            key={lead._id}
-            style={{
-              background: "#fff",
-              borderRadius: "24px",
-              padding: "24px",
-              boxShadow:
-                "0 10px 30px rgba(0,0,0,0.05)",
-              display: "grid",
-              gap: "12px",
-            }}
-          >
-
-            <div>
-              <strong>Name:</strong>{" "}
-              {lead.name}
-            </div>
-
-            <div>
-              <strong>Email:</strong>{" "}
-              {lead.email}
-            </div>
-
-            <div>
-              <strong>Phone:</strong>{" "}
-              {lead.phone}
-            </div>
-
-            <div>
-              <strong>Company:</strong>{" "}
-              {lead.company}
-            </div>
-
-            <div>
-              <strong>Message:</strong>{" "}
-              {lead.message}
-            </div>
+          {leads.length === 0 && (
 
             <div
               style={{
+                background: "#fff",
+                padding: "40px",
+                borderRadius: "20px",
+                textAlign: "center",
                 color: "#64748b",
-                fontSize: "13px",
+                fontWeight: "600",
               }}
             >
-              {new Date(
-                lead.createdAt
-              ).toLocaleString()}
+              No Leads Yet 🚀
             </div>
 
-          </div>
+          )}
 
-        ))}
+          {leads.map((lead) => (
 
-      </div>
+            <div
+              key={lead._id}
+              style={{
+                background: "#fff",
+                borderRadius: "24px",
+                padding: "24px",
+                boxShadow:
+                  "0 10px 30px rgba(0,0,0,0.05)",
+                display: "grid",
+                gap: "12px",
+              }}
+            >
+
+              <div>
+                <strong>Name:</strong>{" "}
+                {lead.name}
+              </div>
+
+              <div>
+                <strong>Email:</strong>{" "}
+                {lead.email}
+              </div>
+
+              <div>
+                <strong>Phone:</strong>{" "}
+                {lead.phone}
+              </div>
+
+              <div>
+                <strong>Company:</strong>{" "}
+                {lead.company}
+              </div>
+
+              <div>
+                <strong>Message:</strong>{" "}
+                {lead.message}
+              </div>
+
+              <div
+                style={{
+                  color: "#64748b",
+                  fontSize: "13px",
+                }}
+              >
+                {new Date(
+                  lead.createdAt
+                ).toLocaleString()}
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
 
     </div>
   );
