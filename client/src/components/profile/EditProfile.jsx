@@ -120,8 +120,26 @@ export default function EditProfile() {
       jobTitle:
         user?.jobTitle || "",
 
-      company:
-        user?.company || "",
+      companyName:
+        user?.companyName || "",
+
+      companyContact:
+        user?.companyContact || "",
+
+      streetAddress:
+        user?.streetAddress || "",
+
+      city:
+        user?.city || "",
+
+      state:
+        user?.state || "",
+
+      country:
+        user?.country || "",
+
+      postcode:
+        user?.postcode || "",
 
       phone:
         user?.phone || "",
@@ -615,7 +633,7 @@ export default function EditProfile() {
         <Field icon={Icons.at} label="Username" name="username" placeholder="yourhandle" form={form} set={set} hint="taplink.cc/yourhandle" />
         <Field icon={Icons.mail} label="Email" name="email" type="email" placeholder="you@example.com" form={form} set={set} />
         <Field icon={Icons.brief} label="Job Title" name="jobTitle" placeholder="e.g. Director" form={form} set={set} />
-        <Field icon={Icons.building} label="Company" name="company" placeholder="Company name" form={form} set={set} />
+
         <Field
           icon={Icons.globe}
           label="Website"
@@ -624,11 +642,11 @@ export default function EditProfile() {
           form={form}
           set={set}
         />
-        <Field icon={Icons.pin} label="Location" name="location" placeholder="City, Country" form={form} set={set} />
+        <Field icon={Icons.phone} label="Phone Number" name="phone" type="tel" placeholder="+91 XXXXX XXXXX" form={form} set={set} />
+
       </div>
 
       {/* Phone */}
-      <Field icon={Icons.phone} label="Phone Number" name="phone" type="tel" placeholder="+91 XXXXX XXXXX" form={form} set={set} />
 
       {/* Bio */}
       <div style={fieldWrap}>
@@ -675,19 +693,91 @@ export default function EditProfile() {
 
   // ── Company Tab ──────────────────────────────────────────────────────────────
   const companyTab = (
-    <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-      <p style={{ margin: 0, fontSize: "13px", color: "#64748b" }}>Company information shown on your digital card.</p>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "18px",
+      }}
+    >
 
-      <Field icon={Icons.building} label="Company Name" name="company" placeholder="Your company" form={form} set={set} />
+      <p
+        style={{
+          margin: 0,
+          fontSize: "13px",
+          color: "#64748b",
+        }}
+      >
+
+        Company information shown on your digital card.
+
+      </p>
+
+      <Field
+        icon={Icons.building}
+        label="Company Name"
+        name="companyName"
+        placeholder="Enter your company's name"
+        form={form}
+        set={set}
+      />
+
+
+
+      <Field
+        icon={Icons.pin}
+        label="Street Address"
+        name="streetAddress"
+        placeholder="Enter Street Address"
+        form={form}
+        set={set}
+      />
+
+      <Field
+        icon={Icons.pin}
+        label="City"
+        name="city"
+        placeholder="Enter City Name"
+        form={form}
+        set={set}
+      />
+
+      <Field
+        icon={Icons.pin}
+        label="State"
+        name="state"
+        placeholder="Enter State Name"
+        form={form}
+        set={set}
+      />
+
       <Field
         icon={Icons.globe}
-        label="Company Website"
+        label="Country"
+        name="country"
+        placeholder="Country"
+        form={form}
+        set={set}
+      />
+
+      <Field
+        icon={Icons.pin}
+        label="Postcode"
+        name="postcode"
+        placeholder="Enter Postcode"
+        form={form}
+        set={set}
+      />
+
+      <Field
+        icon={Icons.globe}
+        label="Website"
         name="website"
         placeholder="company.com"
         form={form}
         set={set}
       />
-      <Field icon={Icons.pin} label="Company Location" name="location" placeholder="City, Country" form={form} set={set} />
+
     </div>
   );
 
@@ -846,12 +936,36 @@ export default function EditProfile() {
                     {/* Name + title */}
                     <h2 style={{ margin: "0 0 2px", fontSize: "18px", fontWeight: "800", color: "#1e293b" }}>{form.firstName} {form.lastName}</h2>
                     <p style={{ margin: "0 0 2px", fontSize: "12px", color: "#7c3aed", fontWeight: "700" }}>
-                      {form.jobTitle}{form.company ? ` · ${form.company}` : ""}
+                      {form.jobTitle}{form.companyName ? ` · ${form.companyName}` : ""}
                     </p>
-                    {form.location && (
-                      <p style={{ margin: "0 0 8px", fontSize: "11px", color: "#94a3b8", display: "flex", alignItems: "center", gap: "3px" }}>
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                        {form.location}
+                    {(form.city || form.state || form.country) && (
+                      <p
+                        style={{
+                          margin: "0 0 8px",
+                          fontSize: "11px",
+                          color: "#94a3b8",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                        }}
+                      >
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#94a3b8"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        >
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+
+                        {[form.city, form.state, form.country]
+                          .filter(Boolean)
+                          .join(", ")}
+
                       </p>
                     )}
                     {form.bio && <p style={{ margin: "0 0 10px", fontSize: "12px", color: "#64748b", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{form.bio}</p>}

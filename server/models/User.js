@@ -52,22 +52,59 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
 
-    company: {
-      type: String,
-      default: "",
-    },
-
+    // PERSONAL CONTACT
     phone: {
       type: String,
       default: "",
     },
 
+    emailPublic: {
+      type: String,
+      default: "",
+    },
+
+    // LOCATION
     location: {
       type: String,
       default: "",
     },
 
-    // WEBSITE
+    streetAddress: {
+      type: String,
+      default: "",
+    },
+
+    city: {
+      type: String,
+      default: "",
+    },
+
+    state: {
+      type: String,
+      default: "",
+    },
+
+    country: {
+      type: String,
+      default: "",
+    },
+
+    postcode: {
+      type: String,
+      default: "",
+    },
+
+    // COMPANY INFO
+    companyName: {
+      type: String,
+      default: "",
+    },
+
+    companyContact: {
+      type: String,
+      default: "",
+    },
+
     // WEBSITE
     website: {
       type: String,
