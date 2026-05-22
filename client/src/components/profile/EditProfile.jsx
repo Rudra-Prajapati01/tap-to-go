@@ -896,7 +896,6 @@ END:VCARD`;
           </div>
 
         </div>
-      </div>
     </main >
     </>
   );
