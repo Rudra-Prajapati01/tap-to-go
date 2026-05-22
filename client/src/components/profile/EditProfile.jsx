@@ -105,6 +105,9 @@ export default function EditProfile() {
       logoImage:
         user?.logoImage || "",
 
+      coverTheme:
+        user?.coverTheme || "",
+
       firstName:
         user?.name?.split(" ")[0] || "",
 
@@ -794,11 +797,20 @@ export default function EditProfile() {
           { name: "Golden", a: "#f59e0b", b: "#ef4444" },
           { name: "Sky", a: "#38bdf8", b: "#818cf8" },
         ].map(t => (
-          <div key={t.name}
-            onClick={() => set("coverImage", "")}
-            style={{ height: "56px", borderRadius: "14px", background: `linear-gradient(135deg,${t.a},${t.b})`, cursor: "pointer", display: "flex", alignItems: "flex-end", padding: "6px 10px", border: "2px solid transparent", transition: "border-color 0.2s" }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = "#7c3aed"}
-            onMouseLeave={e => e.currentTarget.style.borderColor = "transparent"}
+          <div
+            key={t.name}
+            onClick={() =>
+              set(
+                "coverTheme",
+                `linear-gradient(135deg,${t.a},${t.b})`
+              )
+            }
+            style={{
+              height: "56px",
+              borderRadius: "14px",
+              background: `linear-gradient(135deg,${t.a},${t.b})`,
+              cursor: "pointer",
+            }}
           >
             <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.8)", fontWeight: "700" }}>{t.name}</span>
           </div>
