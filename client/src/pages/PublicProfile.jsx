@@ -23,7 +23,7 @@ const PublicProfile = () => {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/users/${uniqueId}`
+        `${import.meta.env.VITE_API_URL}/api/users/${uniqueId}`
       );
       setUser(res.data);
     } catch (error) {
@@ -137,12 +137,33 @@ const PublicProfile = () => {
   const avatarSize = isPortrait ? 110 : isCenter ? 96 : 90;
 
   // Page background
-  const pageBg = theme.profileTheme ||
-    `radial-gradient(ellipse 70% 50% at 15% 10%, rgba(255,182,193,0.55) 0%, transparent 55%),
-     radial-gradient(ellipse 60% 60% at 85% 5%, rgba(186,147,255,0.45) 0%, transparent 55%),
-     radial-gradient(ellipse 80% 50% at 50% 100%, rgba(147,197,253,0.4) 0%, transparent 55%),
-     radial-gradient(ellipse 50% 40% at 90% 80%, rgba(255,182,255,0.35) 0%, transparent 50%),
-     #fdf4ff`;
+  const pageBg = `
+  radial-gradient(
+    ellipse 70% 50% at 15% 10%,
+    rgba(255,182,193,0.55) 0%,
+    transparent 55%
+  ),
+
+  radial-gradient(
+    ellipse 60% 60% at 85% 5%,
+    rgba(186,147,255,0.45) 0%,
+    transparent 55%
+  ),
+
+  radial-gradient(
+    ellipse 80% 50% at 50% 100%,
+    rgba(147,197,253,0.4) 0%,
+    transparent 55%
+  ),
+
+  radial-gradient(
+    ellipse 50% 40% at 90% 80%,
+    rgba(255,182,255,0.35) 0%,
+    transparent 50%
+  ),
+
+  #fdf4ff
+`;
 
   const socials = [
     {
