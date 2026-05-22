@@ -12,14 +12,11 @@ const leadSchema = new mongoose.Schema(
     },
 
     name: String,
-
     email: String,
-
     phone: String,
-
     company: String,
-
     message: String,
+
   },
   {
     timestamps: true,

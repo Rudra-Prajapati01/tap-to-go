@@ -19,22 +19,32 @@ const Leads = () => {
 
   const fetchLeads = async () => {
 
-    try {
+  try {
 
-      const res = await axios.get(
+    const res = await axios.get(
 
-        `${import.meta.env.VITE_API_URL}/api/leads/${user.uniqueId}`
+      `${import.meta.env.VITE_API_URL}/api/leads/${user.uniqueId}`
 
-      );
+    );
 
-      setLeads(res.data);
+    console.log(res.data);
 
-    } catch (error) {
+    setLeads(
+      Array.isArray(res.data)
+        ? res.data
+        : res.data.leads || []
+    );
 
-      console.log(error);
+  } catch (error) {
 
-    }
-  };
+    console.log(error);
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 
   return (
 
