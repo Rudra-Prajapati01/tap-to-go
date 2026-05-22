@@ -17,6 +17,9 @@ import PublicProfile from "../pages/PublicProfile";
 
 import EditProfile from "../components/profile/EditProfile";
 
+import Leads from "../components/leads/Leads";
+
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -62,6 +65,17 @@ const AppRoutes = () => {
             <ProtectedRoute>
               <DashboardLayout>
                 <EditProfile />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/leads"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Leads />
               </DashboardLayout>
             </ProtectedRoute>
           }
