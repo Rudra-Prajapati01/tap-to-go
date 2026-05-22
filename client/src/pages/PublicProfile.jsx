@@ -23,7 +23,7 @@ const PublicProfile = () => {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-      '${import.meta.env.VITE_API_URL}/api/users/${uniqueId}'
+      `${import.meta.env.VITE_API_URL}/api/users/${uniqueId}`
       );
       setUser(res.data);
     } catch (error) {
