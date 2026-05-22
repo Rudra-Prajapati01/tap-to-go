@@ -979,84 +979,130 @@ const PublicProfile = () => {
 
         {showLeadForm && (
 
-          <div className="lead-modal">
+          <div
+            className="lead-modal"
+            onClick={() => setShowLeadForm(false)}
+          >
 
-            <div className="lead-box">
+            <div
+              className="lead-box"
+              onClick={(e) => e.stopPropagation()}
+            >
 
-              <h2>
-                Connect with {user.name}
-              </h2>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                }}
+              >
 
-              {user.leadCapture?.fields?.name && (
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  value={leadForm.name}
-                  onChange={(e) =>
-                    setLeadForm({
-                      ...leadForm,
-                      name: e.target.value,
-                    })
+                <h2>
+                  Connect with {user.name}
+                </h2>
+
+                <button
+                  onClick={() =>
+                    setShowLeadForm(false)
                   }
-                />
-              )}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontSize: "24px",
+                    cursor: "pointer",
+                    color: "#64748b",
+                    fontWeight: "700",
+                  }}
+                >
+                  ×
+                </button>
 
-              {user.leadCapture?.fields?.email && (
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  value={leadForm.email}
-                  onChange={(e) =>
-                    setLeadForm({
-                      ...leadForm,
-                      email: e.target.value,
-                    })
-                  }
-                />
-              )}
+              </div>
 
-              {user.leadCapture?.fields?.phone && (
-                <input
-                  type="text"
-                  placeholder="Phone Number"
-                  value={leadForm.phone}
-                  onChange={(e) =>
-                    setLeadForm({
-                      ...leadForm,
-                      phone: e.target.value,
-                    })
-                  }
-                />
-              )}
+              {/* NAME */}
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={leadForm.name}
+                onChange={(e) =>
+                  setLeadForm({
+                    ...leadForm,
+                    name: e.target.value,
+                  })
+                }
+              />
 
-              {user.leadCapture?.fields?.company && (
-                <input
-                  type="text"
-                  placeholder="Company Name"
-                  value={leadForm.company}
-                  onChange={(e) =>
-                    setLeadForm({
-                      ...leadForm,
-                      company: e.target.value,
-                    })
-                  }
-                />
-              )}
+              {/* EMAIL */}
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={leadForm.email}
+                onChange={(e) =>
+                  setLeadForm({
+                    ...leadForm,
+                    email: e.target.value,
+                  })
+                }
+              />
 
-              {user.leadCapture?.fields?.message && (
-                <textarea
-                  placeholder="Message"
-                  value={leadForm.message}
-                  onChange={(e) =>
-                    setLeadForm({
-                      ...leadForm,
-                      message: e.target.value,
-                    })
-                  }
-                />
-              )}
+              {/* PHONE */}
+              <input
+                type="text"
+                placeholder="Phone Number"
+                value={leadForm.phone}
+                onChange={(e) =>
+                  setLeadForm({
+                    ...leadForm,
+                    phone: e.target.value,
+                  })
+                }
+              />
 
-              <button>
+              {/* COMPANY */}
+              <input
+                type="text"
+                placeholder="Company Name"
+                value={leadForm.company}
+                onChange={(e) =>
+                  setLeadForm({
+                    ...leadForm,
+                    company: e.target.value,
+                  })
+                }
+              />
+
+              {/* MESSAGE */}
+              <textarea
+                placeholder="Message"
+                value={leadForm.message}
+                onChange={(e) =>
+                  setLeadForm({
+                    ...leadForm,
+                    message: e.target.value,
+                  })
+                }
+              />
+
+              <button
+                onClick={() => {
+
+                  console.log(leadForm);
+
+                  alert("Lead Submitted 🚀");
+
+                  setShowLeadForm(false);
+
+                  setLeadForm({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    company: "",
+                    message: "",
+                  });
+
+                }}
+              >
                 Submit
               </button>
 
