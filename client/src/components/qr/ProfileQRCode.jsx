@@ -1,10 +1,17 @@
-import QRCode from "react-qr-code";
+import { QRCodeCanvas }
+from "qrcode.react";
 
 export default function ProfileQRCode({
 
   uniqueId,
 
 }) {
+
+  if (!uniqueId) {
+
+    return null;
+
+  }
 
   const profileUrl =
 
@@ -14,24 +21,30 @@ export default function ProfileQRCode({
 
     <div
       style={{
-        background: "#fff",
-        padding: "20px",
-        borderRadius: "20px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "14px",
+        gap: "12px",
+        background: "#fff",
+        padding: "20px",
+        borderRadius: "18px",
       }}
     >
 
-      <QRCode
+      <QRCodeCanvas
         value={profileUrl}
-        size={220}
+        size={180}
+        bgColor="#ffffff"
+        fgColor="#111111"
+        level="H"
       />
 
       <p
         style={{
           fontSize: "12px",
+          color: "#64748b",
+          textAlign: "center",
+          wordBreak: "break-all",
         }}
       >
 
