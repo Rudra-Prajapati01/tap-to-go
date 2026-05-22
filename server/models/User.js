@@ -68,7 +68,8 @@ const userSchema = new mongoose.Schema(
     },
 
     // WEBSITE
-    companyUrl: {
+    // WEBSITE
+    website: {
       type: String,
       default: "",
     },
