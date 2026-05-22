@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import ProfileQRCode from "../qr/ProfileQRCode";
 
 const inputStyle = {
   width: "100%",
@@ -685,7 +686,7 @@ export default function EditProfile() {
         placeholder="company.com"
         form={form}
         set={set}
-      />      
+      />
       <Field icon={Icons.pin} label="Company Location" name="location" placeholder="City, Country" form={form} set={set} />
     </div>
   );
@@ -869,6 +870,13 @@ export default function EditProfile() {
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" /></svg>
                   <span style={{ fontSize: "12px", color: "#64748b", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>taplink.cc/{form.username || "yourhandle"}</span>
                   <button style={{ fontSize: "12px", fontWeight: "700", color: "#7c3aed", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}>Copy</button>
+                </div>
+                <div style={{ margin: "16px" }}>
+
+                  <ProfileQRCode
+                    uniqueId={user?.uniqueId}
+                  />
+
                 </div>
               </div>
             </div>
