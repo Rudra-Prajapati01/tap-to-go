@@ -7,28 +7,22 @@ from "firebase/auth";
 const firebaseConfig = {
 
   apiKey:
-    import.meta.env
-      .VITE_FIREBASE_API_KEY,
+    "AIzaSyDHsm3vfq5NTwo5yAbwM2K4DZ-uYNwnSzA",
 
   authDomain:
-    import.meta.env
-      .VITE_FIREBASE_AUTH_DOMAIN,
+    "tap-to-go-app.firebaseapp.com",
 
   projectId:
-    import.meta.env
-      .VITE_FIREBASE_PROJECT_ID,
+    "tap-to-go-app",
 
   storageBucket:
-    import.meta.env
-      .VITE_FIREBASE_STORAGE_BUCKET,
+    "tap-to-go-app.firebasestorage.app",
 
   messagingSenderId:
-    import.meta.env
-      .VITE_FIREBASE_MESSAGING_SENDER_ID,
+    "69535428209",
 
   appId:
-    import.meta.env
-      .VITE_FIREBASE_APP_ID,
+    "1:69535428209:web:e907a495c57faf9fecb5d0",
 
 };
 
