@@ -1,8 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState }
+from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams }
+from "react-router-dom";
 
-import axios from "axios";
+import axios
+from "axios";
+
+const infoBox = {
+  background: "#f8fafc",
+  padding: "10px 12px",
+  borderRadius: "12px",
+  fontSize: "13px",
+  color: "#475569",
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+};
 
 const PublicProfile = () => {
 
@@ -21,28 +35,30 @@ const PublicProfile = () => {
 
   }, []);
 
-  const fetchUser = async () => {
+  const fetchUser =
+    async () => {
 
-    try {
+      try {
 
-      const res = await axios.get(
+        const res =
+          await axios.get(
 
-        `${import.meta.env.VITE_API_URL}/api/users/${uniqueId}`
+            `${import.meta.env.VITE_API_URL}/api/users/${uniqueId}`
 
-      );
+          );
 
-      setUser(res.data);
+        setUser(res.data);
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error);
+        console.log(error);
 
-    } finally {
+      } finally {
 
-      setLoading(false);
+        setLoading(false);
 
-    }
-  };
+      }
+    };
 
   if (loading) {
 
@@ -72,94 +88,379 @@ const PublicProfile = () => {
 
   }
 
-  // QR DISABLED
-  if (!user.qrActive) {
-
-    return (
-
-      <div className="min-h-screen flex items-center justify-center bg-black text-white text-3xl font-bold">
-
-        QR Code Disabled
-
-      </div>
-
-    );
-
-  }
-
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-[#FFE6E6] via-[#FFABE1] to-[#A685E2] flex items-center justify-center p-5">
+    <div
+      style={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(135deg,#FFE6E6,#FFABE1,#A685E2)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+        fontFamily:
+          "'DM Sans','sans-serif'",
+      }}
+    >
 
-      <div className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-[30px] shadow-2xl overflow-hidden">
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "340px",
+          background: "#fff",
+          borderRadius: "20px",
+          overflow: "hidden",
+          border:
+            "1.5px solid #f1f5f9",
+          boxShadow:
+            "0 8px 32px rgba(99,102,241,0.1)",
+        }}
+      >
 
         {/* COVER */}
-        <div className="h-40 bg-gradient-to-r from-[#6155A6] to-[#A685E2]"></div>
+        <div
+          style={{
+            height: "110px",
 
-        {/* PROFILE IMAGE */}
-        <div className="flex justify-center -mt-16">
+            background:
+              user.coverImage
 
-          <img
-            src={user.profileImage}
-            alt=""
-            className="w-32 h-32 rounded-full border-4 border-white shadow-xl object-cover"
-          />
+                ? `url(${user.coverImage}) center/cover`
+
+                : "linear-gradient(135deg,#667eea,#764ba2,#f093fb)",
+
+            position: "relative",
+          }}
+        >
+
+          {/* LOGO */}
+          {
+            user.logoImage && (
+
+              <div
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "10px",
+                  background:
+                    "rgba(255,255,255,0.92)",
+                  padding: "4px",
+                  boxShadow:
+                    "0 2px 8px rgba(0,0,0,0.12)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+
+                <img
+                  src={user.logoImage}
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+
+              </div>
+
+            )
+          }
 
         </div>
 
-        {/* CONTENT */}
-        <div className="p-6 text-center">
+        {/* BODY */}
+        <div
+          style={{
+            background: "#fff",
+            padding: "0 16px 18px",
+          }}
+        >
 
-          <h1 className="text-3xl font-bold text-[#6155A6]">
+          {/* AVATAR */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
+          >
+
+            {
+              user.profileImage && (
+
+                <img
+                  src={user.profileImage}
+                  alt=""
+                  style={{
+                    width: "72px",
+                    height: "72px",
+                    borderRadius: "14px",
+                    objectFit: "cover",
+                    border:
+                      "3px solid #fff",
+                    boxShadow:
+                      "0 4px 12px rgba(0,0,0,0.1)",
+                  }}
+                />
+
+              )
+            }
+
+            <button
+              style={{
+                marginBottom: "4px",
+                padding: "7px 14px",
+                borderRadius: "10px",
+                background:
+                  "linear-gradient(135deg,#7c3aed,#a855f7)",
+                color: "#fff",
+                fontSize: "12px",
+                fontWeight: "700",
+                border: "none",
+              }}
+            >
+
+              Connect
+
+            </button>
+
+          </div>
+
+          {/* NAME */}
+          <h2
+            style={{
+              margin: "0 0 2px",
+              fontSize: "18px",
+              fontWeight: "800",
+              color: "#1e293b",
+            }}
+          >
 
             {user.name}
 
-          </h1>
+          </h2>
 
-          <p className="text-gray-500 mt-1">
+          {/* JOB */}
+          <p
+            style={{
+              margin: "0 0 2px",
+              fontSize: "12px",
+              color: "#7c3aed",
+              fontWeight: "700",
+            }}
+          >
 
-            @{user.username}
+            {user.jobTitle}
+
+            {
+              user.company &&
+              ` · ${user.company}`
+            }
 
           </p>
 
-          <p className="mt-4 text-gray-700">
+          {/* LOCATION */}
+          {
+            user.location && (
 
-            {user.bio || "Welcome to my Tap To Go profile 🚀"}
+              <p
+                style={{
+                  margin: "0 0 8px",
+                  fontSize: "11px",
+                  color: "#94a3b8",
+                }}
+              >
 
-          </p>
+                📍 {user.location}
+
+              </p>
+
+            )
+          }
+
+          {/* BIO */}
+          {
+            user.bio && (
+
+              <p
+                style={{
+                  margin: "0 0 10px",
+                  fontSize: "12px",
+                  color: "#64748b",
+                  lineHeight: 1.5,
+                }}
+              >
+
+                {user.bio}
+
+              </p>
+
+            )
+          }
+
+          {/* CONTACT */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "7px",
+            }}
+          >
+
+            {
+              user.phone && (
+
+                <div style={infoBox}>
+
+                  📞 {user.phone}
+
+                </div>
+
+              )
+            }
+
+            {
+              user.email && (
+
+                <div style={infoBox}>
+
+                  ✉️ {user.email}
+
+                </div>
+
+              )
+            }
+
+            {
+              user.location && (
+
+                <div style={infoBox}>
+
+                  📍 {user.location}
+
+                </div>
+
+              )
+            }
+
+          </div>
+
+          {/* WEBSITE */}
+          {
+            user.website && (
+
+              <a
+                href={user.website}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  marginTop: "12px",
+                  display: "block",
+                  textAlign: "center",
+                  padding: "10px",
+                  borderRadius: "12px",
+                  background:
+                    "linear-gradient(135deg,#7c3aed,#a855f7)",
+                  color: "#fff",
+                  fontWeight: "700",
+                  textDecoration: "none",
+                  fontSize: "13px",
+                }}
+              >
+
+                Visit Website
+
+              </a>
+
+            )
+          }
 
           {/* SOCIALS */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div
+            style={{
+              display: "flex",
+              gap: "8px",
+              flexWrap: "wrap",
+              marginTop: "14px",
+            }}
+          >
 
-            {user.instagram && (
-              <a
-                href={user.instagram}
-                target="_blank"
-                className="px-4 py-2 rounded-full bg-pink-500 text-white"
-              >
-                Instagram
-              </a>
-            )}
+            {
+              user.instagram && (
 
-            {user.linkedin && (
-              <a
-                href={user.linkedin}
-                target="_blank"
-                className="px-4 py-2 rounded-full bg-blue-600 text-white"
-              >
-                LinkedIn
-              </a>
-            )}
+                <a
+                  href={user.instagram}
+                  target="_blank"
+                  style={{
+                    background: "#E1306C",
+                    color: "#fff",
+                    padding: "6px 12px",
+                    borderRadius: "999px",
+                    fontSize: "12px",
+                    textDecoration: "none",
+                  }}
+                >
 
-            {user.github && (
-              <a
-                href={user.github}
-                target="_blank"
-                className="px-4 py-2 rounded-full bg-black text-white"
-              >
-                GitHub
-              </a>
-            )}
+                  Instagram
+
+                </a>
+
+              )
+            }
+
+            {
+              user.linkedin && (
+
+                <a
+                  href={user.linkedin}
+                  target="_blank"
+                  style={{
+                    background: "#0A66C2",
+                    color: "#fff",
+                    padding: "6px 12px",
+                    borderRadius: "999px",
+                    fontSize: "12px",
+                    textDecoration: "none",
+                  }}
+                >
+
+                  LinkedIn
+
+                </a>
+
+              )
+            }
+
+            {
+              user.github && (
+
+                <a
+                  href={user.github}
+                  target="_blank"
+                  style={{
+                    background: "#111",
+                    color: "#fff",
+                    padding: "6px 12px",
+                    borderRadius: "999px",
+                    fontSize: "12px",
+                    textDecoration: "none",
+                  }}
+                >
+
+                  GitHub
+
+                </a>
+
+              )
+            }
 
           </div>
 
