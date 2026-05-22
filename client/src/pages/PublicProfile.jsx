@@ -1085,21 +1085,47 @@ const PublicProfile = () => {
               />
 
               <button
-                onClick={() => {
+                onClick={async () => {
 
-                  console.log(leadForm);
+                  try {
 
-                  alert("Lead Submitted 🚀");
+                    await axios.post(
 
-                  setShowLeadForm(false);
+                      `${import.meta.env.VITE_API_URL}/api/leads`,
 
-                  setLeadForm({
-                    name: "",
-                    email: "",
-                    phone: "",
-                    company: "",
-                    message: "",
-                  });
+                      {
+                        ownerId: user._id,
+
+                        ownerUniqueId:
+                          user.uniqueId,
+
+                        ...leadForm,
+                      }
+                    );
+
+                    alert(
+                      "Lead Submitted 🚀"
+                    );
+
+                    setShowLeadForm(false);
+
+                    setLeadForm({
+                      name: "",
+                      email: "",
+                      phone: "",
+                      company: "",
+                      message: "",
+                    });
+
+                  } catch (error) {
+
+                    console.log(error);
+
+                    alert(
+                      "Something went wrong"
+                    );
+
+                  }
 
                 }}
               >
