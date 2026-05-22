@@ -170,7 +170,7 @@ export default function EditProfile() {
 
       const res = await fetch(
 
-        "http://localhost:5000/api/upload/image",
+        `${import.meta.env.VITE_API_URL}/api/upload/image`,
 
         {
           method: "POST",
@@ -229,8 +229,7 @@ export default function EditProfile() {
       const response =
         await fetch(
 
-          `http://localhost:5000/api/auth/update-profile/${user._id}`,
-
+          `${import.meta.env.VITE_API_URL}/api/auth/update-profile/${user._id}`,
           {
             method: "PUT",
 
