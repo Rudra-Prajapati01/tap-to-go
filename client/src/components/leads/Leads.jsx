@@ -9,6 +9,9 @@ const Leads = () => {
   const [loading, setLoading] =
     useState(true);
 
+  const [selectedLead, setSelectedLead] =
+    useState(null);
+
   const user =
     JSON.parse(
       localStorage.getItem("user")
@@ -30,13 +33,11 @@ const Leads = () => {
 
       );
 
-      console.log(res.data);
-
       setLeads(
 
         Array.isArray(res.data)
           ? res.data
-          : res.data.leads || []
+          : []
 
       );
 
@@ -67,95 +68,347 @@ const Leads = () => {
           color: "#1e1b4b",
         }}
       >
-        Leads
+        Contacts
       </h1>
 
-      {loading ? (
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "24px",
+          overflow: "hidden",
+          border: "1px solid #eee",
+        }}
+      >
 
-        <div>
-          Loading...
-        </div>
-
-      ) : (
-
+        {/* HEADER */}
         <div
           style={{
             display: "grid",
-            gap: "20px",
+            gridTemplateColumns:
+              "2fr 1fr 1fr 1fr",
+            padding: "18px 24px",
+            fontWeight: "700",
+            color: "#64748b",
+            borderBottom:
+              "1px solid #eee",
+            background: "#fafafa",
           }}
         >
 
-          {leads.length === 0 && (
+          <div>Contact</div>
+          <div>Company</div>
+          <div>Date</div>
+          <div>Action</div>
 
+        </div>
+
+        {/* LOADING */}
+        {loading && (
+
+          <div
+            style={{
+              padding: "40px",
+            }}
+          >
+            Loading...
+          </div>
+
+        )}
+
+        {/* EMPTY */}
+        {!loading &&
+          leads.length === 0 && (
+
+          <div
+            style={{
+              padding: "40px",
+              textAlign: "center",
+              color: "#64748b",
+            }}
+          >
+            No Leads Yet 🚀
+          </div>
+
+        )}
+
+        {/* LEADS */}
+        {leads.map((lead) => (
+
+          <div
+            key={lead._id}
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "2fr 1fr 1fr 1fr",
+              padding: "20px 24px",
+              borderBottom:
+                "1px solid #f1f5f9",
+              alignItems: "center",
+            }}
+          >
+
+            {/* CONTACT */}
             <div
               style={{
-                background: "#fff",
-                padding: "40px",
-                borderRadius: "20px",
-                textAlign: "center",
-                color: "#64748b",
-                fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                gap: "14px",
               }}
             >
-              No Leads Yet 🚀
+
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  background:
+                    "#ede9fe",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent:
+                    "center",
+                  fontWeight: "700",
+                  color: "#7c3aed",
+                }}
+              >
+
+                {lead.name?.charAt(0)}
+
+              </div>
+
+              <div>
+
+                <div
+                  style={{
+                    fontWeight: "700",
+                    color: "#0f172a",
+                  }}
+                >
+                  {lead.name}
+                </div>
+
+                <div
+                  style={{
+                    color: "#64748b",
+                    fontSize: "14px",
+                  }}
+                >
+                  {lead.email}
+                </div>
+
+              </div>
+
             </div>
 
-          )}
+            {/* COMPANY */}
+            <div>
+              {lead.company || "-"}
+            </div>
 
-          {leads.map((lead) => (
+            {/* DATE */}
+            <div>
+
+              {new Date(
+                lead.createdAt
+              ).toLocaleDateString()}
+
+            </div>
+
+            {/* ACTION */}
+            <div>
+
+              <button
+                onClick={() =>
+                  setSelectedLead(lead)
+                }
+                style={{
+                  background:
+                    "linear-gradient(135deg,#7c3aed,#ec4899)",
+                  color: "#fff",
+                  border: "none",
+                  padding:
+                    "10px 18px",
+                  borderRadius: "12px",
+                  fontWeight: "700",
+                  cursor: "pointer",
+                }}
+              >
+                View
+              </button>
+
+            </div>
+
+          </div>
+
+        ))}
+
+      </div>
+
+      {/* MODAL */}
+      {selectedLead && (
+
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background:
+              "rgba(0,0,0,0.5)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent:
+              "center",
+            zIndex: 999,
+          }}
+        >
+
+          <div
+            style={{
+              width: "90%",
+              maxWidth: "700px",
+              background: "#fff",
+              borderRadius: "28px",
+              padding: "35px",
+              position: "relative",
+            }}
+          >
+
+            <button
+              onClick={() =>
+                setSelectedLead(null)
+              }
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                border: "none",
+                background: "none",
+                fontSize: "24px",
+                cursor: "pointer",
+              }}
+            >
+              ×
+            </button>
+
+            <h2
+              style={{
+                fontSize: "30px",
+                fontWeight: "800",
+                marginBottom: "25px",
+              }}
+            >
+              View Connection
+            </h2>
 
             <div
-              key={lead._id}
               style={{
-                background: "#fff",
-                borderRadius: "24px",
-                padding: "24px",
-                boxShadow:
-                  "0 10px 30px rgba(0,0,0,0.05)",
                 display: "grid",
-                gap: "12px",
+                gridTemplateColumns:
+                  "1fr 1fr",
+                gap: "24px",
               }}
             >
 
               <div>
-                <strong>Name:</strong>{" "}
-                {lead.name}
-              </div>
 
-              <div>
-                <strong>Email:</strong>{" "}
-                {lead.email}
-              </div>
+                <p>
+                  <strong>
+                    Full Name:
+                  </strong>
+                  <br />
+                  {selectedLead.name}
+                </p>
 
-              <div>
-                <strong>Phone:</strong>{" "}
-                {lead.phone}
-              </div>
+                <p>
+                  <strong>
+                    Email:
+                  </strong>
+                  <br />
+                  {selectedLead.email}
+                </p>
 
-              <div>
-                <strong>Company:</strong>{" "}
-                {lead.company}
-              </div>
+                <p>
+                  <strong>
+                    Phone:
+                  </strong>
+                  <br />
+                  {selectedLead.phone}
+                </p>
 
-              <div>
-                <strong>Message:</strong>{" "}
-                {lead.message}
+                <p>
+                  <strong>
+                    Company:
+                  </strong>
+                  <br />
+                  {selectedLead.company}
+                </p>
+
+                <p>
+                  <strong>
+                    Message:
+                  </strong>
+                  <br />
+                  {selectedLead.message}
+                </p>
+
               </div>
 
               <div
                 style={{
-                  color: "#64748b",
-                  fontSize: "13px",
+                  background: "#f8fafc",
+                  borderRadius: "24px",
+                  padding: "24px",
+                  display: "flex",
+                  flexDirection:
+                    "column",
+                  gap: "16px",
+                  justifyContent:
+                    "center",
                 }}
               >
-                {new Date(
-                  lead.createdAt
-                ).toLocaleString()}
+
+                <button
+                  style={{
+                    background:
+                      "#7c3aed",
+                    color: "#fff",
+                    border: "none",
+                    padding:
+                      "14px",
+                    borderRadius:
+                      "14px",
+                    fontWeight:
+                      "700",
+                    cursor:
+                      "pointer",
+                  }}
+                >
+                  Save Contact
+                </button>
+
+                <button
+                  style={{
+                    background:
+                      "#0f172a",
+                    color: "#fff",
+                    border: "none",
+                    padding:
+                      "14px",
+                    borderRadius:
+                      "14px",
+                    fontWeight:
+                      "700",
+                    cursor:
+                      "pointer",
+                  }}
+                >
+                  Export Contact
+                </button>
+
               </div>
 
             </div>
 
-          ))}
+          </div>
 
         </div>
 
