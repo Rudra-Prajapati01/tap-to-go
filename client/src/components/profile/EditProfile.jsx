@@ -615,7 +615,14 @@ export default function EditProfile() {
         <Field icon={Icons.mail} label="Email" name="email" type="email" placeholder="you@example.com" form={form} set={set} />
         <Field icon={Icons.brief} label="Job Title" name="jobTitle" placeholder="e.g. Director" form={form} set={set} />
         <Field icon={Icons.building} label="Company" name="company" placeholder="Company name" form={form} set={set} />
-        <Field icon={Icons.globe} label="Website" name="companyUrl" placeholder="company.com" form={form} set={set} />
+        <Field
+          icon={Icons.globe}
+          label="Website"
+          name="website"
+          placeholder="company.com"
+          form={form}
+          set={set}
+        />
         <Field icon={Icons.pin} label="Location" name="location" placeholder="City, Country" form={form} set={set} />
       </div>
 
@@ -671,7 +678,14 @@ export default function EditProfile() {
       <p style={{ margin: 0, fontSize: "13px", color: "#64748b" }}>Company information shown on your digital card.</p>
 
       <Field icon={Icons.building} label="Company Name" name="company" placeholder="Your company" form={form} set={set} />
-      <Field icon={Icons.globe} label="Company Website" name="companyUrl" placeholder="company.com" form={form} set={set} />
+      <Field
+        icon={Icons.globe}
+        label="Company Website"
+        name="website"
+        placeholder="company.com"
+        form={form}
+        set={set}
+      />      
       <Field icon={Icons.pin} label="Company Location" name="location" placeholder="City, Country" form={form} set={set} />
     </div>
   );
