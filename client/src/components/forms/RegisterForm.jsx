@@ -94,11 +94,8 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const res = await API.post("/register", formData);
-      localStorage.setItem("token", res.data.token);
-      setUser(res.data.user);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
       alert("Registration Successful");
-      navigate("/dashboard");
+      navigate("/login");
     } catch (error) {
       console.log(error);
       alert(error?.response?.data?.message || "Registration Failed");
