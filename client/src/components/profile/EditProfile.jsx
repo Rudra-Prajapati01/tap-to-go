@@ -157,16 +157,42 @@ export default function EditProfile() {
 
   // ── Upload helper ──────────────────────────────────────────────────────────
   const uploadImage = useCallback(async (file) => {
+
     try {
+
       const formData = new FormData();
-      formData.append("image", file);
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/upload/image`, { method: "POST", body: formData });
-      const data = await res.json();
+
+      formData.append(
+        "image",
+        file
+      );
+
+      const res = await fetch(
+
+        `${import.meta.env.VITE_API_URL}/api/upload/profile`,
+
+        {
+          method: "POST",
+
+          body: formData,
+        }
+      );
+
+      const data =
+        await res.json();
+
       return data?.imageUrl || "";
+
     } catch (err) {
-      console.error("Upload error:", err);
+
+      console.error(
+        "Upload error:",
+        err
+      );
+
       return "";
     }
+
   }, []);
 
   /**
