@@ -232,14 +232,14 @@ const ProductAndServices = () => {
                                     new FormData();
 
                                 data.append(
-                                    "file",
+                                    "image",
                                     file
                                 );
 
                                 const res =
                                     await axios.post(
 
-                                        `${import.meta.env.VITE_API_URL}/api/upload`,
+                                        `${import.meta.env.VITE_API_URL}/api/upload/product`,
 
                                         data
                                     );
@@ -251,7 +251,7 @@ const ProductAndServices = () => {
                                     ...prev,
 
                                     image:
-                                        res.data.url,
+                                        res.data.imageUrl,
                                 }));
 
                             } catch (error) {
