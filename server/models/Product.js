@@ -5,6 +5,7 @@ const productSchema =
 
     {
       userId: {
+
         type:
           mongoose.Schema.Types.ObjectId,
 
@@ -21,16 +22,35 @@ const productSchema =
       name: {
         type: String,
         required: true,
+        trim: true,
       },
 
       description: {
         type: String,
         default: "",
+        trim: true,
       },
 
       price: {
         type: String,
         default: "",
+      },
+
+      currency: {
+        type: String,
+        default: "₹",
+
+        enum: [
+          "₹",
+          "$",
+          "€",
+          "£",
+        ],
+      },
+
+      showPrice: {
+        type: Boolean,
+        default: true,
       },
 
       isActive: {

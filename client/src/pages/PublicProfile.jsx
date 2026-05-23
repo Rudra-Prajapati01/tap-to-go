@@ -521,27 +521,114 @@ const PublicProfile = () => {
         .lead-submit-btn:hover { opacity: 0.88; }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 620px) {
-          .pp-split {
-            grid-template-columns: 1fr;
-          }
-          .pp-cover {
-            height: 140px;
-          }
-          .pp-content {
-            padding: 0 16px 22px;
-          }
-          .pp-name {
-            font-size: ${isPortrait ? "24px" : "24px"};
-          }
-          .pp-card {
-            max-width: 100%;
-          }
-          .pp-connect {
-            padding: 9px 18px;
-            font-size: 12px;
-          }
-        }
+ @media (max-width: 620px) {
+
+  .pp-page{
+    padding: 18px 8px 40px;
+  }
+
+  .pp-card{
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  .pp-cover{
+    height: 170px;
+  }
+
+  .pp-content{
+    padding: 0 18px 24px;
+  }
+
+  .pp-top-row{
+    margin-top: -42px;
+    margin-bottom: 20px;
+  }
+
+  .pp-avatar{
+    width: 82px !important;
+    height: 82px !important;
+    border-radius: 18px;
+  }
+
+  .pp-avatar-placeholder{
+    width: 82px !important;
+    height: 82px !important;
+    font-size: 30px;
+  }
+
+  .pp-connect{
+    padding: 10px 18px;
+    font-size: 13px;
+    border-radius: 12px;
+  }
+
+  .pp-split{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .pp-name{
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+
+  .pp-job{
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+
+  .pp-location{
+    font-size: 13px;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  .pp-bio{
+    font-size: 15px;
+    line-height: 1.9;
+    margin-top: 14px;
+    color: #475569;
+  }
+
+  .pp-socials-title,
+  .pp-section-label{
+    font-size: 12px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+  }
+
+  .pp-socials{
+    gap: 10px;
+  }
+
+  .pp-social{
+    padding: 11px 16px;
+    font-size: 13px;
+    border-radius: 12px;
+  }
+
+  .pp-chip{
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .pp-chip-text{
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .pp-website{
+    font-size: 14px;
+    padding: 14px;
+    border-radius: 16px;
+    margin-top: 16px;
+  }
+
+}
       `}</style>
 
       <div className="pp-page">
@@ -763,9 +850,24 @@ const PublicProfile = () => {
               )}
             </div>
           </div>
+          {/* PRODUCTS */}
+          <div
+            style={{
+              padding: "0 28px 32px",
+            }}
+          >
+            <PublicProducts
+              userId={user._id}
+              theme={theme.buttonColor}
+            />
+          </div>
         </div>
 
+
+
+
         {/* ── LEAD FORM MODAL ── */}
+
         {showLeadForm && (
           <div className="lead-modal" onClick={() => setShowLeadForm(false)}>
             <div className="lead-box" onClick={(e) => e.stopPropagation()}>
@@ -846,14 +948,6 @@ const PublicProfile = () => {
               </button>
             </div>
           </div>
-        )}
-
-        {/* Products Section */}
-        {user && (
-          <PublicProducts
-            userId={user._id}
-            theme={theme}
-          />
         )}
       </div>
     </>

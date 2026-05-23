@@ -1,49 +1,6 @@
 import Product from "../models/Product.js";
 
 
-// CREATE PRODUCT
-export const createProduct =
-  async (req, res) => {
-
-    try {
-
-      const {
-        userId,
-        image,
-        name,
-        description,
-        price,
-      } = req.body;
-
-      const product =
-        await Product.create({
-
-          userId,
-
-          image,
-
-          name,
-
-          description,
-
-          price,
-        });
-
-      res.status(201).json(
-        product
-      );
-
-    } catch (error) {
-
-      res.status(500).json({
-
-        message:
-          error.message,
-      });
-    }
-  };
-
-
 // GET USER PRODUCTS
 export const getUserProducts =
   async (req, res) => {
@@ -57,7 +14,9 @@ export const getUserProducts =
             req.params.userId,
 
           isActive: true,
-        }).sort({
+        })
+
+        .sort({
           createdAt: -1,
         });
 
@@ -65,46 +24,92 @@ export const getUserProducts =
         products
       );
 
-    } catch (error) {
+    } catch (err) {
 
       res.status(500).json({
 
         message:
-          error.message,
+          "Failed to fetch products",
+
+        error:
+          err.message,
       });
     }
   };
 
 
-// GET SINGLE PRODUCT
-export const getSingleProduct =
+// CREATE PRODUCT
+export const createProduct =
   async (req, res) => {
 
     try {
 
-      const product =
-        await Product.findById(
-          req.params.id
-        );
+      const {
 
-      if (!product) {
+        userId,
 
-        return res.status(404).json({
+        image,
+
+        name,
+
+        description,
+
+        price,
+
+        currency,
+
+        showPrice,
+
+      } = req.body;
+
+      if (
+        !userId ||
+        !name
+      ) {
+
+        return res.status(400).json({
+
           message:
-            "Product not found",
+            "userId and name are required.",
         });
       }
 
-      res.status(200).json(
+      const product =
+        await Product.create({
+
+          userId,
+
+          image:
+            image || "",
+
+          name,
+
+          description:
+            description || "",
+
+          price:
+            price || "",
+
+          currency:
+            currency || "₹",
+
+          showPrice:
+            showPrice !== false,
+        });
+
+      res.status(201).json(
         product
       );
 
-    } catch (error) {
+    } catch (err) {
 
       res.status(500).json({
 
         message:
-          error.message,
+          "Failed to create product",
+
+        error:
+          err.message,
       });
     }
   };
@@ -116,7 +121,7 @@ export const updateProduct =
 
     try {
 
-      const updatedProduct =
+      const updated =
         await Product.findByIdAndUpdate(
 
           req.params.id,
@@ -125,27 +130,33 @@ export const updateProduct =
 
           {
             new: true,
+
+            runValidators: true,
           }
         );
 
-      if (!updatedProduct) {
+      if (!updated) {
 
         return res.status(404).json({
+
           message:
-            "Product not found",
+            "Product not found.",
         });
       }
 
       res.status(200).json(
-        updatedProduct
+        updated
       );
 
-    } catch (error) {
+    } catch (err) {
 
       res.status(500).json({
 
         message:
-          error.message,
+          "Failed to update product",
+
+        error:
+          err.message,
       });
     }
   };
@@ -157,30 +168,35 @@ export const deleteProduct =
 
     try {
 
-      const deletedProduct =
+      const deleted =
         await Product.findByIdAndDelete(
           req.params.id
         );
 
-      if (!deletedProduct) {
+      if (!deleted) {
 
         return res.status(404).json({
+
           message:
-            "Product not found",
+            "Product not found.",
         });
       }
 
       res.status(200).json({
+
         message:
-          "Product deleted successfully",
+          "Product deleted successfully.",
       });
 
-    } catch (error) {
+    } catch (err) {
 
       res.status(500).json({
 
         message:
-          error.message,
+          "Failed to delete product",
+
+        error:
+          err.message,
       });
     }
   };

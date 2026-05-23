@@ -3,6 +3,9 @@ const ProductCard = ({
   name,
   description,
   price,
+  currency = "₹",
+  showPrice = true,
+  theme = "#7c3aed",
 }) => {
 
   return (
@@ -10,111 +13,277 @@ const ProductCard = ({
     <div
       style={{
         width: "100%",
+
         background: "#ffffff",
-        borderRadius: "22px",
+
+        borderRadius: "24px",
+
         overflow: "hidden",
+
         border: "1px solid #eef2ff",
+
         boxShadow:
           "0 10px 30px rgba(15,23,42,0.08)",
-        transition: "0.3s",
+
+        transition: "all 0.3s ease",
+
+        display: "flex",
+
+        flexDirection: "column",
+
+        position: "relative",
       }}
     >
 
-      {/* Product Image */}
+      {/* IMAGE */}
       <div
         style={{
           width: "100%",
-          height: "220px",
-          overflow: "hidden",
+
+          height: "240px",
+
           background: "#f8fafc",
+
+          overflow: "hidden",
+
+          position: "relative",
         }}
       >
-        <img
-          src={image}
-          alt={name}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
+
+        {image ? (
+
+          <img
+            src={image}
+            alt={name}
+
+            style={{
+              position: "absolute",
+
+              inset: 0,
+
+              width: "100%",
+
+              height: "100%",
+
+              objectFit: "cover",
+
+              objectPosition: "center",
+
+              transform: "scale(1.12)",
+
+              display: "block",
+            }}
+          />
+
+        ) : (
+
+          <div
+            style={{
+              width: "100%",
+
+              height: "100%",
+
+              display: "flex",
+
+              alignItems: "center",
+
+              justifyContent: "center",
+
+              fontSize: "44px",
+
+              color: "#94a3b8",
+            }}
+          >
+            🛍️
+          </div>
+
+        )}
+
       </div>
 
-      {/* Content */}
+      {/* CONTENT */}
       <div
         style={{
-          padding: "18px",
+          padding: "20px",
+
           display: "flex",
+
           flexDirection: "column",
-          gap: "10px",
+
+          gap: "12px",
+
+          flex: 1,
         }}
       >
 
-        {/* Product Name */}
+        {/* PRODUCT NAME */}
         <h2
           style={{
             margin: 0,
+
             fontSize: "20px",
-            fontWeight: "700",
+
+            fontWeight: "800",
+
             color: "#0f172a",
+
+            lineHeight: "1.4",
+
+            display: "-webkit-box",
+
+            WebkitLineClamp: 2,
+
+            WebkitBoxOrient: "vertical",
+
+            overflow: "hidden",
           }}
         >
           {name}
         </h2>
 
-        {/* Description */}
+        {/* DESCRIPTION */}
         <p
           style={{
             margin: 0,
+
             fontSize: "14px",
+
             color: "#64748b",
-            lineHeight: "1.6",
+
+            lineHeight: "1.7",
+
+            display: "-webkit-box",
+
+            WebkitLineClamp: 3,
+
+            WebkitBoxOrient: "vertical",
+
+            overflow: "hidden",
+
+            minHeight: "72px",
           }}
         >
           {description}
         </p>
 
-        {/* Bottom */}
+        {/* FOOTER */}
         <div
           style={{
-            marginTop: "8px",
+            marginTop: "auto",
+
+            paddingTop: "14px",
+
             display: "flex",
+
             alignItems: "center",
+
             justifyContent: "space-between",
+
+            gap: "12px",
           }}
         >
 
-          {/* Price */}
-          <h3
+          {/* LEFT */}
+          <div
             style={{
-              margin: 0,
-              fontSize: "24px",
-              fontWeight: "800",
-              color: "#7c3aed",
+              display: "flex",
+
+              flexDirection: "column",
             }}
           >
-            ₹{price}
-          </h3>
 
-          {/* Button */}
+            <span
+              style={{
+                fontSize: "12px",
+
+                color: "#94a3b8",
+
+                fontWeight: "700",
+
+                marginBottom: "2px",
+              }}
+            >
+              Starting From
+            </span>
+
+            {showPrice ? (
+
+              <h3
+                style={{
+                  margin: 0,
+
+                  fontSize: "28px",
+
+                  fontWeight: "900",
+
+                  color: theme,
+
+                  lineHeight: 1,
+                }}
+              >
+                {currency}{price}
+              </h3>
+
+            ) : (
+
+              <span
+                style={{
+                  fontSize: "13px",
+
+                  fontWeight: "700",
+
+                  color: "#64748b",
+
+                  background: "#f8fafc",
+
+                  padding: "8px 12px",
+
+                  borderRadius: "10px",
+
+                  border:
+                    "1px solid #e2e8f0",
+                }}
+              >
+                Contact For Pricing
+              </span>
+
+            )}
+
+          </div>
+
+          {/* RIGHT */}
           <button
             style={{
-              padding: "10px 18px",
               border: "none",
-              borderRadius: "12px",
+
+              padding: "12px 18px",
+
+              borderRadius: "14px",
+
               background:
-                "linear-gradient(135deg,#7c3aed,#a855f7)",
+                `linear-gradient(135deg, ${theme}, ${theme})`,
+
               color: "#fff",
-              fontWeight: "600",
+
+              fontWeight: "800",
+
+              fontSize: "13px",
+
               cursor: "pointer",
-              fontSize: "14px",
+
+              whiteSpace: "nowrap",
+
+              boxShadow:
+                "0 4px 14px rgba(15,23,42,0.15)",
             }}
           >
-            View Product
+            💬 Inquiry
           </button>
 
         </div>
+
       </div>
+
     </div>
   );
 };

@@ -6,15 +6,14 @@ import {
 
   getUserProducts,
 
-  getSingleProduct,
-
   updateProduct,
 
   deleteProduct,
 
 } from "../controllers/productController.js";
 
-const router = express.Router();
+const router =
+  express.Router();
 
 
 // CREATE PRODUCT
@@ -28,13 +27,6 @@ router.post(
 router.get(
   "/user/:userId",
   getUserProducts
-);
-
-
-// GET SINGLE PRODUCT
-router.get(
-  "/:id",
-  getSingleProduct
 );
 
 
