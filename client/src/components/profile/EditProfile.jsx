@@ -135,6 +135,7 @@ export default function EditProfile() {
     linkedin: storedUser.linkedin || "",
     github: storedUser.github || "",
     youtube: storedUser.youtube || "",
+    facebook: storedUser.facebook || "",
     twitter: storedUser.twitter || "",
     whatsapp: storedUser.whatsapp || "",
     theme: {
@@ -543,10 +544,25 @@ END:VCARD`;
       <p style={{ margin: 0, fontSize: "13px", color: "#64748b" }}>Add your social links to display them on your card.</p>
       {[
         { name: "instagram", label: "Instagram", placeholder: "instagram.com/yourhandle", color: "#E1306C" },
+
         { name: "linkedin", label: "LinkedIn", placeholder: "linkedin.com/in/yourprofile", color: "#0A66C2" },
+
         { name: "github", label: "GitHub", placeholder: "github.com/yourusername", color: "#333333" },
+
         { name: "twitter", label: "Twitter/X", placeholder: "twitter.com/yourhandle", color: "#1DA1F2" },
+
         { name: "youtube", label: "YouTube", placeholder: "youtube.com/@channel", color: "#FF0000" },
+
+        {
+          name: "facebook",
+
+          label: "Facebook",
+
+          placeholder: "facebook.com/yourprofile",
+
+          color: "#1877F2"
+        },
+
         { name: "whatsapp", label: "WhatsApp", placeholder: "+91 XXXXX XXXXX", color: "#25D366" },
       ].map(({ name, label, placeholder, color }) => (
         <div key={name} style={fieldWrap}>

@@ -106,10 +106,55 @@ const PublicProfile = () => {
   const avatarSize = isPortrait ? 110 : isCenter ? 96 : 90;
 
   const socials = [
-    { key: "instagram", label: "Instagram", bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)", icon: "📸" },
-    { key: "linkedin", label: "LinkedIn", bg: "#0A66C2", icon: "💼" },
-    { key: "github", label: "GitHub", bg: "#18181b", icon: "🐙" },
-    { key: "twitter", label: "Twitter / X", bg: "#000", icon: "𝕏" },
+
+    {
+      key: "instagram",
+      label: "Instagram",
+      bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
+      icon: "📸"
+    },
+
+    {
+      key: "linkedin",
+      label: "LinkedIn",
+      bg: "#0A66C2",
+      icon: "💼"
+    },
+
+    {
+      key: "github",
+      label: "GitHub",
+      bg: "#18181b",
+      icon: "🐙"
+    },
+
+    {
+      key: "twitter",
+      label: "Twitter / X",
+      bg: "#000",
+      icon: "𝕏"
+    },
+
+    {
+      key: "youtube",
+      label: "YouTube",
+      bg: "#FF0000",
+      icon: "▶️"
+    },
+
+    {
+      key: "facebook",
+      label: "Facebook",
+      bg: "#1877F2",
+      icon: "📘"
+    },
+
+    {
+      key: "whatsapp",
+      label: "WhatsApp",
+      bg: "#25D366",
+      icon: "💬"
+    },
   ];
 
   const pillStyle = {
@@ -898,17 +943,29 @@ const PublicProfile = () => {
                 {/* Socials */}
                 {socials.some((s) => user[s.key]) && (
                   <>
-                    <p className="pp-socials-title">Connect with me</p>
-                    <div className="pp-socials">
-                      {socials.map(({ key, label, bg, icon }) =>
-                        user[key] ? (
-                          <a key={key} href={user[key]} target="_blank" rel="noreferrer"
-                            className="pp-social" style={{ background: bg }}>
-                            <span>{icon}</span>{label.split(" ")[0]}
-                          </a>
-                        ) : null
-                      )}
-                    </div>
+                    <a
+                      key={key}
+
+                      href={
+                        key === "whatsapp"
+                          ? `https://wa.me/${user[key]}`
+                          : user[key]
+                      }
+
+                      target="_blank"
+
+                      rel="noreferrer"
+
+                      className="pp-social"
+
+                      style={{
+                        background: bg
+                      }}
+                    >
+                      <span>{icon}</span>
+
+                      {label.split(" ")[0]}
+                    </a>
                   </>
                 )}
 
