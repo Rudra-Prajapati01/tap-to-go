@@ -394,20 +394,82 @@ END:VCARD`;
       </div>
 
       {/* Bio */}
-      <input
-        style={{
-          flex: 1,
-          padding: "10px 12px",
-          borderRadius: "10px",
-          border: "1.5px solid #e2e8f0",
-          fontSize: "13px",
-          fontFamily: "monospace",
+      {/* Bio */}
+      <div style={fieldWrap}>
 
-          color: theme.textColor,
+        <label style={labelStyle}>
+          Bio
+        </label>
 
-          outline: "none"
-        }}
-      />
+        <textarea
+
+          placeholder="Write something about yourself..."
+
+          value={form.bio || ""}
+
+          onChange={(e) =>
+            set("bio", e.target.value)
+          }
+
+          maxLength={250}
+
+          style={{
+            width: "100%",
+
+            minHeight: "120px",
+
+            padding: "14px",
+
+            borderRadius: "14px",
+
+            border: "1.5px solid #e2e8f0",
+
+            outline: "none",
+
+            resize: "none",
+
+            fontSize: "14px",
+
+            fontFamily: "inherit",
+
+            background: "#f8fafc",
+
+            color: "inherit",
+
+            lineHeight: "1.7",
+
+            transition: "0.2s",
+          }}
+
+          onFocus={(e) =>
+          (e.target.style.borderColor =
+            "#7c3aed")
+          }
+
+          onBlur={(e) =>
+          (e.target.style.borderColor =
+            "#e2e8f0")
+          }
+        />
+
+        <span
+          style={{
+            marginTop: "6px",
+
+            fontSize: "12px",
+
+            color:
+              bioLeft < 20
+                ? "#ef4444"
+                : "#94a3b8",
+
+            textAlign: "right",
+          }}
+        >
+          {bioLeft} characters left
+        </span>
+
+      </div>
     </div>
   );
 
@@ -665,7 +727,7 @@ END:VCARD`;
                 border: "3px solid #fff",
                 boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                 transition: "all 0.3s ease",
-                
+
               }}
             />
           )}
