@@ -1,10 +1,10 @@
 import express from "express";
 
-import Lead from "../models/Lead.js";
-
 import {
   createLead,
 } from "../controllers/leadController.js";
+
+import Lead from "../models/Lead.js";
 
 const router = express.Router();
 
@@ -12,11 +12,31 @@ const router = express.Router();
 // CREATE LEAD
 router.post(
   "/",
-  createLead
+  async (req, res) => {
+
+    try {
+
+      const lead =
+        await Lead.create(req.body);
+
+      res.status(201).json({
+        success: true,
+        lead,
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
 );
 
 
-// GET USER LEADS
+// GET LEADS
 router.get(
   "/:ownerId",
 
@@ -33,7 +53,6 @@ router.get(
         }).sort({
 
           createdAt: -1,
-
         });
 
       res.json(leads);
@@ -47,9 +66,7 @@ router.get(
         message:
           "Server Error",
       });
-
     }
-
   }
 );
 
