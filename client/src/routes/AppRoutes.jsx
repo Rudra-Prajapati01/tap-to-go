@@ -22,6 +22,9 @@ import Leads from "../components/leads/Leads";
 import ProductAndServices
   from "../components/products-services/ProductAndServices";
 
+import ProductDetails
+  from "../pages/ProductDetails";
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -92,6 +95,11 @@ const AppRoutes = () => {
               </DashboardLayout>
             </ProtectedRoute>
           }
+        />
+
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
         />
       </Routes>
 

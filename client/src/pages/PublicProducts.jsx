@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import { useNavigate }
+    from "react-router-dom";
+
 const PublicProducts = ({
     userId,
     theme = "#7c3aed",
@@ -8,6 +11,8 @@ const PublicProducts = ({
 
     const [products, setProducts] =
         useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -102,7 +107,13 @@ const PublicProducts = ({
                         <div
                             key={product._id}
 
+                            onClick={() =>
+                                navigate(`/product/${product._id}`)
+                            }
+
                             style={{
+                                cursor: "pointer",
+
                                 background: "#ffffff",
 
                                 borderRadius: "24px",

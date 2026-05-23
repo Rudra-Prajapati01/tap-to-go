@@ -6,6 +6,8 @@ import {
 
   getUserProducts,
 
+  getSingleProduct,
+
   updateProduct,
 
   deleteProduct,
@@ -27,6 +29,13 @@ router.post(
 router.get(
   "/user/:userId",
   getUserProducts
+);
+
+
+// GET SINGLE PRODUCT
+router.get(
+  "/:id",
+  getSingleProduct
 );
 
 
