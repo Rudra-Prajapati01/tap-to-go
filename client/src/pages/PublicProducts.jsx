@@ -128,9 +128,9 @@ const PublicProducts = ({
                             {/* IMAGE */}
                             <div
                                 style={{
-                                    width: "100%",
+                                    width: "80%",
 
-                                    height: "260px",
+                                    height: "80%",
 
                                     background: "#f8fafc",
 
