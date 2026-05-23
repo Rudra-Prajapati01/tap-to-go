@@ -29,7 +29,7 @@ const Leads = () => {
 
       const res = await axios.get(
 
-        `${import.meta.env.VITE_API_URL}/api/leads/${user.uniqueId}`
+        `${import.meta.env.VITE_API_URL}/api/leads/${user._id}`
 
       );
 
@@ -119,17 +119,17 @@ const Leads = () => {
         {!loading &&
           leads.length === 0 && (
 
-          <div
-            style={{
-              padding: "40px",
-              textAlign: "center",
-              color: "#64748b",
-            }}
-          >
-            No Leads Yet 🚀
-          </div>
+            <div
+              style={{
+                padding: "40px",
+                textAlign: "center",
+                color: "#64748b",
+              }}
+            >
+              No Leads Yet 🚀
+            </div>
 
-        )}
+          )}
 
         {/* LEADS */}
         {leads.map((lead) => (
