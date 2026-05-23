@@ -277,27 +277,17 @@ const ProductAndServices = () => {
                             cursor: "pointer",
                         }}
                     />
+                    {loading && (
 
-                    {/* PREVIEW */}
-                    {form.image && (
-
-                        <img
-                            src={form.image}
-                            alt="preview"
-
+                        <p
                             style={{
-                                width: "100%",
-
-                                height: "220px",
-
-                                objectFit: "cover",
-
-                                borderRadius: "16px",
-
-                                border:
-                                    "1px solid #e2e8f0",
+                                color: "#7c3aed",
+                                fontWeight: "600",
+                                margin: 0,
                             }}
-                        />
+                        >
+                            Uploading image...
+                        </p>
                     )}
 
                 </div>
@@ -466,7 +456,7 @@ const ProductAndServices = () => {
                     <div
                         style={{
                             width: "100%",
-                            height: "240px",
+                            minHeight: "240px",
                             background: "#f8fafc",
                         }}
                     >
