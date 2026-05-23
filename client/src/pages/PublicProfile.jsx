@@ -941,31 +941,50 @@ const PublicProfile = () => {
                 {user.bio && <p className="pp-bio">{user.bio}</p>}
 
                 {/* Socials */}
+                {/* Socials */}
                 {socials.some((s) => user[s.key]) && (
                   <>
-                    <a
-                      key={key}
 
-                      href={
-                        key === "whatsapp"
-                          ? `https://wa.me/${user[key]}`
-                          : user[key]
-                      }
+                    <p className="pp-socials-title">
+                      Connect with me
+                    </p>
 
-                      target="_blank"
+                    <div className="pp-socials">
 
-                      rel="noreferrer"
+                      {socials.map(
+                        ({ key, label, bg, icon }) =>
 
-                      className="pp-social"
+                          user[key] ? (
 
-                      style={{
-                        background: bg
-                      }}
-                    >
-                      <span>{icon}</span>
+                            <a
+                              key={key}
 
-                      {label.split(" ")[0]}
-                    </a>
+                              href={
+                                key === "whatsapp"
+                                  ? `https://wa.me/${user[key].replace(/\s+/g, "")}`
+                                  : user[key]
+                              }
+
+                              target="_blank"
+
+                              rel="noreferrer"
+
+                              className="pp-social"
+
+                              style={{
+                                background: bg
+                              }}
+                            >
+                              <span>{icon}</span>
+
+                              {label.split(" ")[0]}
+                            </a>
+
+                          ) : null
+                      )}
+
+                    </div>
+
                   </>
                 )}
 
