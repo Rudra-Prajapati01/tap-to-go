@@ -648,7 +648,7 @@ END:VCARD`;
             display: "flex",
             justifyContent: isPortrait ? "center" : "space-between",
             alignItems: "flex-end",
-            marginTop: isPortrait ? "-36px" : "-10px",
+            marginTop: isPortrait ? "10px" : "18px",
             marginBottom: "10px",
             width: "100%",
           }}
@@ -665,6 +665,7 @@ END:VCARD`;
                 border: "3px solid #fff",
                 boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                 transition: "all 0.3s ease",
+                
               }}
             />
           )}
@@ -867,36 +868,36 @@ END:VCARD`;
               </button>
             </div>
 
-          {/* ── RIGHT: Preview ── */}
-          <div className="preview-sticky" style={{ position: "sticky", top: "90px" }}>
-            <div style={{ background: "#fff", borderRadius: "20px", overflow: "hidden", border: "1.5px solid #f1f5f9", boxShadow: "0 2px 16px rgba(99,102,241,0.06)" }}>
+            {/* ── RIGHT: Preview ── */}
+            <div className="preview-sticky" style={{ position: "sticky", top: "90px" }}>
+              <div style={{ background: "#fff", borderRadius: "20px", overflow: "hidden", border: "1.5px solid #f1f5f9", boxShadow: "0 2px 16px rgba(99,102,241,0.06)" }}>
 
-              {/* Preview header */}
-              <div style={{ padding: "14px 18px", borderBottom: "1.5px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span style={{ fontWeight: "700", fontSize: "14px", color: "#1e293b" }}>Card Preview</span>
-                <span style={{ fontSize: "12px", color: "#10b981", fontWeight: "600", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
-                  Live
-                </span>
-              </div>
-
-              {/* Card preview */}
-              <div style={{ margin: "16px" }}>{cardPreview}</div>
-
-              {/* QR code */}
-              <div style={{ margin: "0 16px 16px", background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: "14px", padding: "14px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-                  {Icons.qr}
-                  <span style={{ fontSize: "12px", color: "#64748b", fontWeight: "600" }}>Public Profile QR</span>
+                {/* Preview header */}
+                <div style={{ padding: "14px 18px", borderBottom: "1.5px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span style={{ fontWeight: "700", fontSize: "14px", color: "#1e293b" }}>Card Preview</span>
+                  <span style={{ fontSize: "12px", color: "#10b981", fontWeight: "600", display: "flex", alignItems: "center", gap: "4px" }}>
+                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
+                    Live
+                  </span>
                 </div>
-                <ProfileQRCode uniqueId={storedUser?.uniqueId} />
+
+                {/* Card preview */}
+                <div style={{ margin: "16px" }}>{cardPreview}</div>
+
+                {/* QR code */}
+                <div style={{ margin: "0 16px 16px", background: "#f8fafc", border: "1.5px solid #e2e8f0", borderRadius: "14px", padding: "14px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                    {Icons.qr}
+                    <span style={{ fontSize: "12px", color: "#64748b", fontWeight: "600" }}>Public Profile QR</span>
+                  </div>
+                  <ProfileQRCode uniqueId={storedUser?.uniqueId} />
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
-                 </div> 
-    </main >
+      </main >
     </>
   );
 }

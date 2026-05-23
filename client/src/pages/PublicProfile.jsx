@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import PublicProducts from "./PublicProducts";
 
 const PublicProfile = () => {
   const { uniqueId } = useParams();
@@ -846,9 +847,18 @@ const PublicProfile = () => {
             </div>
           </div>
         )}
+
+        {/* Products Section */}
+        {user && (
+          <PublicProducts
+            userId={user._id}
+            theme={theme}
+          />
+        )}
       </div>
     </>
   );
 };
+
 
 export default PublicProfile;

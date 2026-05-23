@@ -19,6 +19,8 @@ import EditProfile from "../components/profile/EditProfile";
 
 import Leads from "../components/leads/Leads";
 
+import ProductAndServices
+  from "../components/products-services/ProductAndServices";
 
 const AppRoutes = () => {
   return (
@@ -81,6 +83,16 @@ const AppRoutes = () => {
           }
         />
 
+        <Route
+          path="/dashboard/products-services"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <ProductAndServices />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
     </BrowserRouter>
