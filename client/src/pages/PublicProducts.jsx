@@ -137,11 +137,12 @@ const PublicProducts = ({
                         >
 
                             {/* IMAGE */}
+                            {/* IMAGE */}
                             <div
                                 style={{
-                                    width: "80%",
+                                    width: "100%",
 
-                                    height: "80%",
+                                    height: "240px",
 
                                     background: "#f8fafc",
 
@@ -153,7 +154,7 @@ const PublicProducts = ({
 
                                     justifyContent: "center",
 
-                                    padding: "0",
+                                    padding: "16px",
                                 }}
                             >
 
@@ -165,15 +166,13 @@ const PublicProducts = ({
                                         alt={product.name}
 
                                         style={{
-                                            width: "70%",
+                                            maxWidth: "100%",
 
-                                            height: "70%",
+                                            maxHeight: "100%",
 
-                                            objectFit: "cover",
+                                            objectFit: "contain",
 
                                             objectPosition: "center",
-
-                                            transform: "scale(1.25)",
 
                                             display: "block",
                                         }}
@@ -199,164 +198,164 @@ const PublicProducts = ({
                                     </div>
                                 )}
 
-                            </div>
+                        </div>
 
-                            {/* CONTENT */}
-                            <div
-                                style={{
-                                    padding: "20px",
+                            {/* CONTENT */ }
+                    < div
+                                style = {{
+                    padding: "20px",
 
-                                    display: "flex",
+                    display: "flex",
 
-                                    flexDirection: "column",
+                    flexDirection: "column",
 
-                                    gap: "12px",
+                    gap: "12px",
 
-                                    flex: 1,
-                                }}
+                    flex: 1,
+                }}
                             >
 
-                                {/* TITLE */}
-                                <h3
-                                    style={{
-                                        margin: 0,
+                {/* TITLE */}
+                <h3
+                    style={{
+                        margin: 0,
 
-                                        fontSize: "22px",
+                        fontSize: "22px",
 
-                                        fontWeight: "800",
+                        fontWeight: "800",
 
-                                        color: "#0f172a",
+                        color: "#0f172a",
 
-                                        lineHeight: 1.4,
+                        lineHeight: 1.4,
 
-                                        display: "-webkit-box",
+                        display: "-webkit-box",
 
-                                        WebkitLineClamp: 2,
+                        WebkitLineClamp: 2,
 
-                                        WebkitBoxOrient: "vertical",
+                        WebkitBoxOrient: "vertical",
 
-                                        overflow: "hidden",
-                                    }}
-                                >
-                                    {product.name}
-                                </h3>
+                        overflow: "hidden",
+                    }}
+                >
+                    {product.name}
+                </h3>
 
-                                {/* DESCRIPTION */}
-                                {product.description && (
+                {/* DESCRIPTION */}
+                {product.description && (
 
-                                    <p
-                                        style={{
-                                            margin: 0,
+                    <p
+                        style={{
+                            margin: 0,
 
-                                            color: "#64748b",
+                            color: "#64748b",
 
-                                            fontSize: "14px",
+                            fontSize: "14px",
 
-                                            lineHeight: 1.8,
+                            lineHeight: 1.8,
 
-                                            display: "-webkit-box",
+                            display: "-webkit-box",
 
-                                            WebkitLineClamp: 4,
+                            WebkitLineClamp: 4,
 
-                                            WebkitBoxOrient: "vertical",
+                            WebkitBoxOrient: "vertical",
 
-                                            overflow: "hidden",
+                            overflow: "hidden",
 
-                                            minHeight: "95px",
-                                        }}
-                                    >
-                                        {product.description}
-                                    </p>
-                                )}
-
-                                {/* FOOTER */}
-                                <div
-                                    style={{
-                                        display: "flex",
-
-                                        justifyContent:
-                                            "space-between",
-
-                                        alignItems: "center",
-
-                                        marginTop: "auto",
-
-                                        paddingTop: "10px",
-                                    }}
-                                >
-
-                                    {/* PRICE */}
-                                    <div>
-
-                                        <span
-                                            style={{
-                                                fontSize: "12px",
-
-                                                color: "#94a3b8",
-
-                                                fontWeight: "700",
-                                            }}
-                                        >
-                                            Starting From
-                                        </span>
-
-                                        <div
-                                            style={{
-                                                fontSize: "28px",
-
-                                                fontWeight: "900",
-
-                                                color: theme,
-
-                                                marginTop: "2px",
-                                            }}
-                                        >
-                                            {product.showPrice !== false
-                                                ? product.price
-                                                    ? `${product.currency || "₹"}${product.price}`
-                                                    : "Contact"
-                                                : "Custom"}
-                                        </div>
-
-                                    </div>
-
-                                    {/* BUTTON */}
-                                    <button
-                                        style={{
-                                            border: "none",
-
-                                            padding: "12px 18px",
-
-                                            borderRadius: "14px",
-
-                                            background: theme,
-
-                                            color: "#fff",
-
-                                            fontWeight: "800",
-
-                                            fontSize: "13px",
-
-                                            cursor: "pointer",
-
-                                            boxShadow:
-                                                "0 4px 14px rgba(15,23,42,0.15)",
-                                        }}
-                                    >
-                                        💬 Inquiry
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    )
+                            minHeight: "95px",
+                        }}
+                    >
+                        {product.description}
+                    </p>
                 )}
+
+                {/* FOOTER */}
+                <div
+                    style={{
+                        display: "flex",
+
+                        justifyContent:
+                            "space-between",
+
+                        alignItems: "center",
+
+                        marginTop: "auto",
+
+                        paddingTop: "10px",
+                    }}
+                >
+
+                    {/* PRICE */}
+                    <div>
+
+                        <span
+                            style={{
+                                fontSize: "12px",
+
+                                color: "#94a3b8",
+
+                                fontWeight: "700",
+                            }}
+                        >
+                            Starting From
+                        </span>
+
+                        <div
+                            style={{
+                                fontSize: "28px",
+
+                                fontWeight: "900",
+
+                                color: theme,
+
+                                marginTop: "2px",
+                            }}
+                        >
+                            {product.showPrice !== false
+                                ? product.price
+                                    ? `${product.currency || "₹"}${product.price}`
+                                    : "Contact"
+                                : "Custom"}
+                        </div>
+
+                    </div>
+
+                    {/* BUTTON */}
+                    <button
+                        style={{
+                            border: "none",
+
+                            padding: "12px 18px",
+
+                            borderRadius: "14px",
+
+                            background: theme,
+
+                            color: "#fff",
+
+                            fontWeight: "800",
+
+                            fontSize: "13px",
+
+                            cursor: "pointer",
+
+                            boxShadow:
+                                "0 4px 14px rgba(15,23,42,0.15)",
+                        }}
+                    >
+                        💬 Inquiry
+                    </button>
+
+                </div>
 
             </div>
 
-        </section>
+        </div>
+    )
+                )}
+
+            </div >
+
+        </section >
     );
 };
 
