@@ -201,21 +201,59 @@ export default function EditProfile() {
    * 2. Uploads to Cloudinary.
    * 3. Replaces blob with real URL (or clears on failure).
    */
-  const handleImageField = useCallback(async (file, fieldName) => {
-    if (!file) return;
-    const blobUrl = URL.createObjectURL(file);
-    setForm(f => ({ ...f, [fieldName]: blobUrl }));
-    const realUrl = await uploadImage(file);
-    setForm(f => ({
-      ...f,
-      [fieldName]:
-        realUrl
-          ? realUrl
-          : f[fieldName],
-    }));
-    // Revoke old blob to free memory
-    URL.revokeObjectURL(blobUrl);
-  }, [uploadImage]);
+  const handleImageField =
+    useCallback(
+
+      async (
+        file,
+        fieldName
+      ) => {
+
+        if (!file) return;
+
+        try {
+
+          // INSTANT PREVIEW
+          const blobUrl =
+            URL.createObjectURL(file);
+
+          setForm((f) => ({
+
+            ...f,
+
+            [fieldName]:
+              blobUrl,
+
+          }));
+
+
+          // REAL UPLOAD
+          const realUrl =
+            await uploadImage(file);
+
+
+          // SAVE CLOUDINARY URL
+          if (realUrl) {
+
+            setForm((f) => ({
+
+              ...f,
+
+              [fieldName]:
+                realUrl,
+
+            }));
+          }
+
+        } catch (error) {
+
+          console.log(error);
+        }
+
+      },
+
+      [uploadImage]
+    );
 
   // ── Save handler ───────────────────────────────────────────────────────────
   const handleSave = useCallback(async () => {
