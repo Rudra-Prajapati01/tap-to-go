@@ -138,6 +138,19 @@ export default function EditProfile() {
     facebook: storedUser.facebook || "",
     twitter: storedUser.twitter || "",
     whatsapp: storedUser.whatsapp || "",
+
+    leadCapture: storedUser.leadCapture || {
+      enabled: true,
+
+      fields: {
+        name: true,
+        email: true,
+        phone: true,
+        company: false,
+        message: false,
+      },
+    },
+
     theme: {
       profileTheme: storedUser.theme?.profileTheme || "#7c3aed",
       backgroundColor: storedUser.theme?.backgroundColor || "#ffffff",
@@ -147,6 +160,7 @@ export default function EditProfile() {
       fontFamily: storedUser.theme?.fontFamily || "Poppins",
       cardView: storedUser.theme?.cardView || "left",
     },
+
   });
 
   // Flat setter
@@ -738,20 +752,149 @@ END:VCARD`;
   );
 
   // ── Lead Capture Tab ────────────────────────────────────────────────────────
+  const leadFieldsList = [
+    {
+      key: "name",
+      label: "Name",
+      checked:
+        form.leadCapture?.fields?.name,
+    },
+
+    {
+      key: "email",
+      label: "Email",
+      checked:
+        form.leadCapture?.fields?.email,
+    },
+
+    {
+      key: "phone",
+      label: "Phone",
+      checked:
+        form.leadCapture?.fields?.phone,
+    },
+
+    {
+      key: "company",
+      label: "Company",
+      checked:
+        form.leadCapture?.fields?.company,
+    },
+
+    {
+      key: "message",
+      label: "Message",
+      checked:
+        form.leadCapture?.fields?.message,
+    },
+  ];
+
+  const toggleLeadField = (field) => {
+
+    setForm((prev) => ({
+
+      ...prev,
+
+      leadCapture: {
+
+        ...prev.leadCapture,
+
+        fields: {
+
+          ...prev.leadCapture.fields,
+
+          [field]:
+            !prev.leadCapture.fields[field],
+        },
+      },
+    }));
+  };
+
   const leadTab = (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      <p style={{ margin: 0, fontSize: "13px", color: "#64748b" }}>Fields to collect from visitors on your card.</p>
-      <div style={{ padding: "12px 16px", borderRadius: "12px", background: "#eef2ff", border: "1.5px solid #c7d2fe", fontSize: "13px", color: "#4f46e5" }}>
+
+      <p
+        style={{
+          margin: 0,
+          fontSize: "13px",
+          color: "#64748b",
+        }}
+      >
+        Fields to collect from visitors on your card.
+      </p>
+
+      <div
+        style={{
+          padding: "12px 16px",
+          borderRadius: "12px",
+          background: "#eef2ff",
+          border: "1.5px solid #c7d2fe",
+          fontSize: "13px",
+          color: "#4f46e5",
+        }}
+      >
         Lead capture lets visitors submit their contact info directly from your card page.
       </div>
-      {["Name", "Email", "Phone", "Company", "Message"].map(field => (
-        <label key={field} style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
-          <div style={{ width: "20px", height: "20px", borderRadius: "6px", background: theme.buttonColor, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12" /></svg>
-          </div>
-          <span style={{ fontSize: "14px", color: "#334155", fontWeight: "500" }}>{field}</span>
-        </label>
-      ))}
+
+      {leadFieldsList.map((field) => {
+
+        const checked =
+          form.leadCapture?.fields?.[field.key];
+
+        return (
+          <label
+            key={field.key}
+            onClick={() => toggleLeadField(field.key)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              cursor: "pointer",
+              userSelect: "none",
+            }}
+          >
+
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                borderRadius: "7px",
+                border: `2px solid ${checked ? theme.buttonColor : "#cbd5e1"}`,
+                background: checked ? theme.buttonColor : "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "0.2s",
+              }}
+            >
+              {checked && (
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              )}
+            </div>
+
+            <span
+              style={{
+                fontSize: "14px",
+                color: "#334155",
+                fontWeight: "600",
+              }}
+            >
+              {field.label}
+            </span>
+
+          </label>
+        );
+      })}
     </div>
   );
 

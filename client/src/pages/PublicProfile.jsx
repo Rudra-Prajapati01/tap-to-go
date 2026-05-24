@@ -92,7 +92,7 @@ const PublicProfile = () => {
   const isLeftLayout = !isCenter && !isPortrait;
 
   const fontFamily = theme.fontFamily || "'Plus Jakarta Sans', sans-serif";
-  const bgColor = theme.backgroundColor || "rgba(255,255,255,0.82)";
+  const bgColor = theme.backgroundColor || "#0f172a";
   const textColor = theme.textColor || "#1e1b4b";
   const buttonColor = theme.buttonColor || "linear-gradient(135deg,#7c3aed,#a855f7,#ec4899)";
   const buttonTextColor = theme.buttonTextColor || "#fff";
@@ -179,15 +179,16 @@ const PublicProfile = () => {
         body { margin: 0; }
 
         /* ── PAGE ── */
-        .pp-page {
-          min-height: 100vh;
-          background: #f0f2f8;
-          font-family: ${fontFamily};
-          display: flex;
-          align-items: flex-start;
-          justify-content: center;
-          padding: 0 0 60px;
-        }
+.pp-page {
+  min-height: 100vh;
+  background: ${theme.backgroundColor || "#f0f2f8"};
+  font-family: ${fontFamily};
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 0 60px;
+  transition: background 0.3s ease;
+}
 
         /* ── CARD ── */
         .pp-card {
@@ -1020,8 +1021,6 @@ const PublicProfile = () => {
           </div>
 
 
-
-          {/* ══ PRODUCTS ══ */}
           {/* ══ PRODUCTS ══ */}
           <div className="pp-products-wrap">
             <PublicProducts
@@ -1032,30 +1031,130 @@ const PublicProfile = () => {
 
         </div>
 
-        {/* ══ LEAD FORM MODAL (original logic 100%) ══ */}
+        {/* ══ LEAD FORM MODAL ══ */}
+        {/* ════════════════════════════════════════
+    LEAD FORM MODAL
+════════════════════════════════════════ */}
         {showLeadForm && (
-          <div className="lead-modal" onClick={() => setShowLeadForm(false)}>
-            <div className="lead-box" onClick={(e) => e.stopPropagation()}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                <h2>Connect with {user.name}</h2>
-                <button onClick={() => setShowLeadForm(false)}
-                  style={{ background: "none", border: "none", fontSize: "24px", cursor: "pointer", color: "#64748b", fontWeight: "700" }}>
+          <div
+            className="lead-modal"
+            onClick={() => setShowLeadForm(false)}
+          >
+
+            <div
+              className="lead-box"
+              onClick={(e) => e.stopPropagation()}
+            >
+
+              {/* HEADER */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "18px",
+                }}
+              >
+                <h2>
+                  Connect with {user.name}
+                </h2>
+
+                <button
+                  onClick={() => setShowLeadForm(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontSize: "24px",
+                    cursor: "pointer",
+                    color: "#64748b",
+                    fontWeight: "700",
+                  }}
+                >
                   ×
                 </button>
               </div>
-              <input type="text" placeholder="Your Name" value={leadForm.name}
-                onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })} />
-              <input type="email" placeholder="Your Email" value={leadForm.email}
-                onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })} />
-              <input type="text" placeholder="Phone Number" value={leadForm.phone}
-                onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })} />
-              <input type="text" placeholder="Company Name" value={leadForm.company}
-                onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })} />
-              <textarea placeholder="Message" value={leadForm.message}
-                onChange={(e) => setLeadForm({ ...leadForm, message: e.target.value })} />
-              <button className="lead-submit-btn" style={buttonStyle}
+
+              {/* NAME */}
+              {(user?.leadCapture?.fields?.name ?? true) && (
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={leadForm.name}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      name: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {/* EMAIL */}
+              {(user?.leadCapture?.fields?.email ?? true) && (
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={leadForm.email}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      email: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {/* PHONE */}
+              {(user?.leadCapture?.fields?.phone ?? true) && (
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={leadForm.phone}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      phone: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {/* COMPANY */}
+              {(user?.leadCapture?.fields?.company ?? true) && (
+                <input
+                  type="text"
+                  placeholder="Company Name"
+                  value={leadForm.company}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      company: e.target.value,
+                    })
+                  }
+                />
+              )}
+
+              {/* MESSAGE */}
+              {(user?.leadCapture?.fields?.message ?? true) && (
+                <textarea
+                  placeholder="Message"
+                  value={leadForm.message}
+                  onChange={(e) =>
+                    setLeadForm({
+                      ...leadForm,
+                      message: e.target.value,
+                    })
+                  }
+                />
+              )}
+              {/* SUBMIT */}
+              <button
+                className="lead-submit-btn"
+                style={buttonStyle}
                 onClick={async () => {
+
                   try {
+
                     await axios.post(
                       `${import.meta.env.VITE_API_URL}/api/leads`,
                       {
@@ -1072,20 +1171,33 @@ const PublicProfile = () => {
                         message: leadForm.message,
                       }
                     );
+
                     alert("Lead Submitted 🚀");
+
                     setShowLeadForm(false);
-                    setLeadForm({ name: "", email: "", phone: "", company: "", message: "" });
+
+                    setLeadForm({
+                      name: "",
+                      email: "",
+                      phone: "",
+                      company: "",
+                      message: "",
+                    });
+
                   } catch (error) {
+
                     console.log(error);
+
                     alert("Something went wrong");
                   }
-                }}>
+                }}
+              >
                 Submit
               </button>
+
             </div>
           </div>
-        )}
-      </div>
+        )}      </div>
     </>
   );
 };

@@ -121,6 +121,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
     coverTheme: {
       type: String,
       default: "",
@@ -178,14 +179,17 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
 
-    // LEAD CAPTURE SETTINGS
+    // ✅ LEAD FIELDS
+    // ✅ LEAD FORM SETTINGS
     leadCapture: {
+
       enabled: {
         type: Boolean,
         default: true,
       },
 
       fields: {
+
         name: {
           type: Boolean,
           default: true,
@@ -212,43 +216,43 @@ const userSchema = new mongoose.Schema(
         },
       },
     },
-
+    // THEME SETTINGS
     theme: {
       profileTheme: {
         type: String,
-        default: "#7c3aed"
+        default: "#7c3aed",
       },
 
       backgroundColor: {
         type: String,
-        default: "#ffffff"
+        default: "#ffffff",
       },
 
       textColor: {
         type: String,
-        default: "#000000"
+        default: "#000000",
       },
 
       buttonColor: {
         type: String,
-        default: "#7c3aed"
+        default: "#7c3aed",
       },
 
       buttonTextColor: {
         type: String,
-        default: "#ffffff"
+        default: "#ffffff",
       },
 
       fontFamily: {
         type: String,
-        default: "Poppins"
+        default: "Poppins",
       },
 
       cardView: {
         type: String,
-        default: "left"
-      }
-    }
+        default: "left",
+      },
+    },
   },
 
   {
