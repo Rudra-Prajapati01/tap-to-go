@@ -192,13 +192,23 @@ const PublicProfile = () => {
 
         /* ── CARD ── */
         .pp-card {
-          width: 100%;
-          max-width: ${isPortrait ? "520px" : "860px"};
-          background: #ffffff;
-          border-radius: 0 0 32px 32px;
-          box-shadow: 0 8px 48px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
-          overflow: hidden;
-        }
+        width: 100%;
+        max-width: ${isPortrait ? "520px" : "860px"};
+
+        background: ${theme.backgroundColor || "#ffffff"};
+
+        color: ${theme.textColor || "#1e293b"};
+
+        border-radius: 0 0 32px 32px;
+
+        box-shadow: 0 8px 48px rgba(0,0,0,0.10),
+                    0 2px 8px rgba(0,0,0,0.06);
+
+        overflow: hidden;
+
+        transition: background 0.3s ease,
+                    color 0.3s ease;
+      }
 
         /* ══════════════════════════════════════════
            HERO / COVER — reference image exact
@@ -580,10 +590,16 @@ const PublicProfile = () => {
           ${isCenter || isPortrait ? "text-align: center;" : ""}
         }
         .pp-contact-card {
-          background: #fff;
-          border: 1.5px solid #e8ecf4;
+
+          background:
+            ${theme.backgroundColor || "#ffffff"};
+
+          border: 1.5px solid rgba(255,255,255,0.08);
+
           border-radius: 22px;
+
           padding: 20px;
+
           box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
         .pp-contact-card-header {
@@ -601,7 +617,7 @@ const PublicProfile = () => {
         .pp-contact-card-header h3 {
           font-size: 15px;
           font-weight: 800;
-          color: #0f172a;
+          color: ${theme.textColor || "#0f172a"};
           font-family: ${fontFamily};
         }
         .pp-contacts {
@@ -620,7 +636,10 @@ const PublicProfile = () => {
           position: relative;
           cursor: pointer;
           transition: background 0.15s, transform 0.15s;
-          background: #f8fafc;
+          background:
+                    ${theme.backgroundColor === "#ffffff"
+                      ? "#f8fafc"
+                      : "rgba(255,255,255,0.05)"};
           border: 1px solid #f1f5f9;
         }
         .pp-chip:hover { background: #f1f5f9; transform: translateX(2px); }
@@ -730,7 +749,7 @@ const PublicProfile = () => {
         .pp-products-heading {
           font-size: 18px;
           font-weight: 900;
-          color: #0f172a;
+          color: ${theme.textColor || "#0f172a"};
           font-family: ${fontFamily};
           display: flex;
           flex-direction: column;
