@@ -638,8 +638,8 @@ const PublicProfile = () => {
           transition: background 0.15s, transform 0.15s;
           background:
                     ${theme.backgroundColor === "#ffffff"
-                      ? "#f8fafc"
-                      : "rgba(255,255,255,0.05)"};
+          ? "#f8fafc"
+          : "rgba(255,255,255,0.05)"};
           border: 1px solid #f1f5f9;
         }
         .pp-chip:hover { background: #f1f5f9; transform: translateX(2px); }
@@ -1273,8 +1273,23 @@ const ContactBlock = ({ user, copied, handleCopy, buttonStyle, isCenter }) => (
       )}
     </div>
     {user.website && (
-      <a href={user.website} target="_blank" rel="noreferrer"
-        className="pp-website" style={buttonStyle}>
+
+      <a
+        href={
+          user.website.startsWith("http://") ||
+            user.website.startsWith("https://")
+            ? user.website
+            : `https://${user.website}`
+        }
+
+        target="_blank"
+
+        rel="noreferrer"
+
+        className="pp-website"
+
+        style={buttonStyle}
+      >
         🌐 Visit My Website →
       </a>
     )}
