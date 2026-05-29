@@ -1,73 +1,43 @@
 import express from "express";
 
 import {
+
   createLead,
+  getLeads,
+  updateLead,
+  deleteLead,
+
 } from "../controllers/leadController.js";
 
-import Lead from "../models/Lead.js";
+const router =
+  express.Router();
 
-const router = express.Router();
+/* CREATE */
 
-
-// CREATE LEAD
 router.post(
   "/",
-  async (req, res) => {
-
-    try {
-
-      const lead =
-        await Lead.create(req.body);
-
-      res.status(201).json({
-        success: true,
-        lead,
-      });
-
-    } catch (error) {
-
-      console.log(error);
-
-      res.status(500).json({
-        message: error.message,
-      });
-    }
-  }
+  createLead
 );
 
+/* UPDATE */
 
-// GET LEADS
+router.put(
+  "/update/:id",
+  updateLead
+);
+
+/* DELETE */
+
+router.delete(
+  "/delete/:id",
+  deleteLead
+);
+
+/* GET LEADS */
+
 router.get(
   "/:ownerId",
-
-  async (req, res) => {
-
-    try {
-
-      const leads =
-        await Lead.find({
-
-          owner:
-            req.params.ownerId,
-
-        }).sort({
-
-          createdAt: -1,
-        });
-
-      res.json(leads);
-
-    } catch (error) {
-
-      console.log(error);
-
-      res.status(500).json({
-
-        message:
-          "Server Error",
-      });
-    }
-  }
+  getLeads
 );
 
 export default router;

@@ -8,6 +8,12 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Home from "../pages/Home";
 
+// ─── HOME COMPONENTS IMPORTS ─────────────────────────────────────────────────
+import Features from "../components/home/Features";
+import About from "../components/home/About";
+import Products from "../components/home/Products"; // <-- DEDICATED PRODUCTS COMPONENT IMPORT ADDED HERE
+// ─────────────────────────────────────────────────────────────────────────────
+
 import Dashboard from "../components/dashboard/Dashboard";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 
@@ -25,6 +31,11 @@ import ProductAndServices
 import ProductDetails
   from "../pages/ProductDetails";
 
+import Analytics
+  from "../components/analytics/Analytics";
+
+import Contact from "../components/home/Contact";
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -34,6 +45,25 @@ const AppRoutes = () => {
         <Route
           path="/"
           element={<Home />}
+        />
+
+        {/* ─── DEDICATED FEATURES PAGE ROUTE ─── */}
+        <Route
+          path="/features"
+          element={<Features />}
+        />
+
+        {/* ─── DEDICATED ABOUT PAGE ROUTE ─── */}
+        <Route
+          path="/about"
+          element={<About />}
+        />
+        <Route path="/contact" element={<Contact />} />
+
+        {/* ─── DEDICATED PRODUCTS PUBLIC ROUTE ADDED HERE ─── */}
+        <Route
+          path="/products"
+          element={<Products />}
         />
 
         <Route
@@ -97,6 +127,18 @@ const AppRoutes = () => {
           }
         />
 
+        <Route
+          path="/dashboard/analytics"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Analytics />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* DYNAMIC BACKEND/EXTERNAL PRODUCT IDENTIFICATION */}
         <Route
           path="/product/:id"
           element={<ProductDetails />}

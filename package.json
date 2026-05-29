@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "cloudinary": "^1.41.3",
-    "multer-storage-cloudinary": "^4.0.0"
+    "firebase": "^12.13.0"
   }
 }
